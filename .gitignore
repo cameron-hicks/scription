@@ -17,6 +17,10 @@
 .env.development.local
 .env.test.local
 .env.production.local
+CreateReactApp.md
+
+notes.txt
+/public/assets
 
 npm-debug.log*
 yarn-debug.log*
