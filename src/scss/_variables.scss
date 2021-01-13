@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Permanent+Marker&display=swap');
+
 $coolgray: #faf9f9;
 $coolwhite: lighten($coolgray, 1%);
 $brightwhite: lighten($coolgray, 5%);
@@ -5,3 +7,6 @@ $peach: #ffd6ba;
 $navy: #555b6e;
 $teal: #78A5A3;
 $lightteal: #A9DAD0;
+
+$display: 'Permanent Marker', cursive;
+$sans: 'Open Sans', sans-serif;
