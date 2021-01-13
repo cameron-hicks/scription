@@ -1,0 +1,25 @@
+@import '_variables';
+
+.Navbar {
+  width: 100%;
+  // height: 100px;
+  padding: 10px;
+  background-color: $brightwhite;
+  border: lightgray 1px solid;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  ul {
+    height: 100%;
+    width: auto;
+    // display: flex;
+    // flex-direction: column;
+    // flex-wrap: wrap;
+    color: $teal;
+  }
+  li {
+    color: $lightteal;
+    margin: 2px 5px;
+  }
+}

@@ -1,0 +1,11 @@
+@import '_variables';
+
+.Scription {
+  margin: 10px;
+  background-color: $brightwhite;
+
+  p {
+    padding: 10px;
+    border: 1px solid lightgray;
+  }
+}
