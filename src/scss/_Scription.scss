@@ -4,8 +4,31 @@
   margin: 10px;
   background-color: $brightwhite;
 
-  p {
+  div {
     padding: 10px;
     border: 1px solid lightgray;
+  }
+
+  .Scription-comments {
+    padding: 0;
+    border: none;
+  }
+
+  p {
+    border: none;
+    padding: 0;
+    margin-bottom: 10px;
+    border: none;
+  }
+
+  .username {
+    color: $navy;
+    font-weight: 600;
+  }
+
+  .timestamp {
+    color:  lighten($navy, 25%);
+    font-weight: 400;
+    float: right;
   }
 }

@@ -2,7 +2,7 @@
 
 // CSS reset
 
-html, body, div, span, applet, object, iframe,
+div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
@@ -12,7 +12,7 @@ dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
+figure, figcaption, header, hgroup, 
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
 	margin: 0;
@@ -65,6 +65,7 @@ body {
   background-color: $coolwhite;
   position: relative;
   font-family: $sans;
+  color: lighten($navy, 10%);
 }
 
 a {
@@ -98,18 +99,18 @@ button {
   }
 }
 
-footer {
-  width: 100vw;
-  margin: 75px 0 0 0;
-  padding: 50px;
-  text-align: center;
-  background-color: #555b6e;
-  color: $peach;
-  position: absolute;
-  bottom: 0px;
+// footer {
+//   width: 100vw;
+//   margin: 75px 0 0 0;
+//   padding: 50px;
+//   text-align: center;
+//   background-color: #555b6e;
+//   color: $peach;
+//   position: absolute;
+//   bottom: 0px;
 
-  a:hover {
-    color: $coolwhite;
-    transition: color 500ms;
-  }
-}
+//   a:hover {
+//     color: $coolwhite;
+//     transition: color 500ms;
+//   }
+// }

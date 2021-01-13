@@ -6,6 +6,7 @@ const MainContainer = () => {
   // useState hooks here
 
   return (
+    <div>
     <div className="MainContainer">
       <header className="MainContainer-header">
         <h1>Scription</h1>
@@ -17,6 +18,10 @@ const MainContainer = () => {
         <Navbar />
         <Feed />
       </div>
+    </div>
+    <footer>
+      <p>Created by Cameron Baumgartner | <a href="https://github.com/cameronbaumgartner">Github</a> | <a href="https://linkedin.com/in/cameronbaumgartner">LinkedIn</a></p>
+    </footer> 
     </div>
   );
 }

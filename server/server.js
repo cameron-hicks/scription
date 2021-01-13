@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const path = require('path');
 // CORS allows for requests to cross-origin resources, ie, things on other people's pages
 const cors = require("cors");
+const apiRouter = require('./routes/api');
 
 const app = express();
 
@@ -17,6 +18,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // statically serve everything in the build folder 
 app.use('/build/', express.static(path.join(__dirname, '../build')));
+// route all API requests through api.js
+app.use('/api', apiRouter);
+
+
 
 console.log('environment printing from server.js:', process.env.NODE_ENV);
 const environment = process.env.NODE_ENV || 'production';

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import MainContainer from './components/MainContainer';
-import "./scss/index.scss"
+import "./scss/index.scss";
 
 const root = document.getElementById('root');
 
