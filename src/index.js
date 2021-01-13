@@ -1,20 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-// import styles from './scss/index.scss';
-import './scss/index.scss';
+import MainContainer from './components/MainContainer';
+import "./scss/index.scss"
+
 const root = document.getElementById('root');
-// root.style = styles;
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <MainContainer />
   </React.StrictMode>,
   root
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

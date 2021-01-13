@@ -1,5 +1,5 @@
 const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');  // using?
+// const MiniCssExtractPlugin = require('mini-css-extract-plugin');  // using?
 
 // note: simplifieid regexes below during webpack approach lecture. may need to revert if things break.
 
@@ -11,7 +11,7 @@ module.exports = {
     filename: 'bundle.js'
   },
   mode: process.env.NODE_ENV,
-  plugins: [new MiniCssExtractPlugin()],
+  // plugins: [new MiniCssExtractPlugin()],
   module: {
     rules: [
       {
@@ -25,17 +25,13 @@ module.exports = {
         }
       },
       {
-        test: /\.s?css/,
-        use: [
-          // Allows for modularized CSS
-          MiniCssExtractPlugin.loader,
-          // Creates `style` nodes from JS strings; inline if in development mode or as a bundled css file if in production
-          process.env.NODE_ENV === 'production' ? MiniCssExtractPlugin.loader : "style-loader",
-          // Translates CSS into CommonJS
-          "css-loader",
-          // Compiles Sass to CSS
-          "sass-loader",
-        ]          
+        test: /\.(scss|css)$/,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+      },
+      {
+        test: /\.js$/,
+        enforce: 'pre',
+        use: ['source-map-loader']
       }
     ]
   },
@@ -49,7 +45,8 @@ module.exports = {
       //   changeOrigin: true
       // }
     },
-    hot: true  
+    hot: true,
+    contentBase: path.join(__dirname, 'public')  // where to load static files from
   },
   resolve: {
     // enables importing .js/.jsx without specifying the extensions (letters after the .)
