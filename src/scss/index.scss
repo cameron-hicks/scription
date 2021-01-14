@@ -1,4 +1,4 @@
-@import '_variables', '_MainContainer', '_Navbar', '_Feed', '_Scription';
+@import '_variables', '_MainContainer', '_Navbar', '_Feed', '_Scription', '_ScrCreator';
 
 // CSS reset
 
@@ -88,29 +88,10 @@ button {
   font-size: 1rem;
   padding: 8px 16px;
   display: block-inline;
+  outline: none;
 
   &:hover {
     background-color: darken($peach, 5%);
     transition: background-color 500ms;
   }
-
-  &:active {
-    outline: none;
-  }
 }
-
-// footer {
-//   width: 100vw;
-//   margin: 75px 0 0 0;
-//   padding: 50px;
-//   text-align: center;
-//   background-color: #555b6e;
-//   color: $peach;
-//   position: absolute;
-//   bottom: 0px;
-
-//   a:hover {
-//     color: $coolwhite;
-//     transition: color 500ms;
-//   }
-// }

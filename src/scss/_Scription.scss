@@ -3,6 +3,7 @@
 .Scription {
   margin: 10px;
   background-color: $brightwhite;
+  position: relative;
 
   div {
     padding: 10px;
@@ -30,5 +31,15 @@
     color:  lighten($navy, 25%);
     font-weight: 400;
     float: right;
+  }
+
+  button {
+    padding: 5px 10px;
+    box-shadow: 0px 1px 3px;
+  }
+
+  .Scription-likes {
+    display: flex;
+    justify-content: space-between;
   }
 }

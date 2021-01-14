@@ -9,6 +9,7 @@ const Navbar = () => {
         <li><a href="#">folk</a></li>
         <li><a href="#">pop</a></li>
         <li><a href="#">movie music</a></li>
+        <li><a href="#">other</a></li>
       </ul>
       <ul> Artists/Origins
         <li><a href="#">folk</a></li>

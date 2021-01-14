@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from './Navbar.jsx';
 import Feed from './Feed.jsx';
+import ScrCreator from './ScrCreator.jsx';
 
 const MainContainer = () => {
-  // useState hooks here
+  const [displayScrCreator, setDisplay] = useState(false);
 
   return (
     <div className="mainWrapper">
@@ -11,10 +12,14 @@ const MainContainer = () => {
         <header className="MainContainer-header">
           <h1>Scription</h1>
         </header>
-        <div className="MainContainer-btns">
-          <button>New Scription</button>
+        <div className="right-align-btns">
+          <button onClick={() => setDisplay(!displayScrCreator)}>
+            {displayScrCreator ? 'cancel ' : 'New Scription'}
+            {displayScrCreator ? <i className="fas fa-times"></i> : '' }
+          </button>
         </div>
         <div className="MainContainer-content">
+          {displayScrCreator ? <ScrCreator /> : ''}
           <Navbar />
           <Feed />
         </div>
