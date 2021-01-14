@@ -68,7 +68,6 @@ feedController.addScription = (req, res, next) => {
       return next(error);
     }
 
-    console.log('Result of INSERT: ', response);
     return next();
   });
 }
