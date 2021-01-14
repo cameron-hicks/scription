@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Navbar from './Navbar.jsx';
 import Feed from './Feed.jsx';
 import ScrCreator from './ScrCreator.jsx';
-import ABCJS from 'abcjs';
 
 const MainContainer = () => {
   const [displayScrCreator, setDisplay] = useState(false);

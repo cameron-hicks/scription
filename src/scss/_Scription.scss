@@ -5,7 +5,7 @@
   background-color: $brightwhite;
   position: relative;
 
-  div {
+  div:not(.abcjs-inline-audio) {
     padding: 10px;
     border: 1px solid lightgray;
   }

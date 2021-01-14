@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import CommentInput from './CommentInput';
 import ABCJS from 'abcjs';
 
-const USER_ID = 1;
+const USER_ID = 3;
 
 const Scription = ({ scrObj, myContext }) => { 
   const [tuneRendered, setTuneRendered ] = useState(false);
@@ -12,66 +12,73 @@ const Scription = ({ scrObj, myContext }) => {
   const [newCommentSubmitted, setCommentSubmitted] = useState(false);
   const [liked, setLiked] = useState(false);    // whether logged-in user has liked it
   const [likes, setLikes] = useState(0);    // total likes it has
+
   
   useEffect(() => {
-    // fetch comments and likes every time this scription re-renders
-    const queryString = `/api/comments?id=${scrObj._id}`;
-    fetch(queryString)
-    .then(res => res.json())
-    .then((fetched) => {
-      if(!fetched.length) fetched = [];
+    const fetchComments = () => {
+      const queryString = `/api/comments?id=${scrObj._id}`;
+      fetch(queryString)
+      .then(res => res.json())
+      .then((fetched) => {
+        if(!fetched.length) fetched = [];
+  
+        setComments(fetched);
+        // setFetched(true);
+        return;
+      })
+      .catch(err => console.log('Scription GET comments ERROR: ', err));
+    };
+    
+    // fetch total likes and whether current user has liked it
+    const fetchLikes = () => {
+      const queryString = `/api/likes?id=${scrObj._id}&user_id=` + USER_ID;
+      fetch(queryString)
+      .then(res => res.json())
+      .then((fetched) => {
+        // console.log('result of getting likes at scription # ', scrObj._id, fetched);
+        setLikes(fetched.count);
+        setLiked(fetched.likedByUser);
+        return;
+      })
+      .catch(err => console.log('Scription GET likes ERROR: ', err));
+    };
+  
+    const setUpAbc = () => {
+      const visualObj = ABCJS.renderAbc(
+        `TuneId#${scrObj._id}`, 
+        scrObj.abc, 
+        { responsive: 'resize' }
+      );
+      const synth = new ABCJS.synth.CreateSynth();
+      const widget = new ABCJS.synth.SynthController();
+  
+      // display playback widget
+      widget.load(`#widget${scrObj._id}` || '', null, { displayPlay: true, displayProgress: false });
+  
+      // load notes listed in ABC string
+      synth.init({
+        audioContext: myContext,
+        visualObj: visualObj[0],
+      }).then((results) => {
+          widget.setTune(visualObj[0], false, {})
+                .then(() => {
+                  // console.log("Audio successfully loaded.");
+                }).catch(function (error) {
+                  console.warn("Problem initiating playback:", error);
+                });
+      }).catch((error) => {
+          console.warn('Problem buffering audio: ', error);
+      });
+    }
 
-      setComments(fetched);
-      setFetched(true);
-      return;
-    })
-    .catch(err => console.log('Scription GET comments ERROR: ', err));
-
-    // setFetched(false);    // do I even need this piece of state anymore?
-    // TODO: fetch likes within useEffect without infinite loop
-
-    //invoke ABCJS.renderAbc AFTER the component has mounted/updated
-    const visualObj = ABCJS.renderAbc(
-      `TuneId#${scrObj._id}`, 
-      scrObj.abc, 
-      { responsive: 'resize' }
-    );
-    const synth = new ABCJS.synth.CreateSynth();
-    const widget = new ABCJS.synth.SynthController();
-
-    // display playback widget
-    widget.load(`#widget${scrObj._id}` || '', null, { displayPlay: true, displayProgress: false });
-
-    // load notes listed in ABC string
-    synth.init({
-      audioContext: myContext,
-      visualObj: visualObj[0],
-    }).then((results) => {
-        widget.setTune(visualObj[0], false, {})
-              .then(() => {
-                console.log("Audio successfully loaded.");
-              }).catch(function (error) {
-                console.warn("Problem initiating playback:", error);
-              });
-    }).catch((error) => {
-        console.warn('Problem buffering audio: ', error);
-    });
+    fetchComments();
+    fetchLikes();
+    setUpAbc();
 
     // set new comment flag to false
     setCommentSubmitted(false);
-    return setTuneRendered(true);
-  }, [tuneRendered, commentsFetched, scrObj._id, scrObj.abc, newCommentSubmitted]);
-
-  // fetch total likes and whether current user has liked it
-  const queryString = `/api/likes?id=${scrObj._id}&user_id=` + USER_ID;
-  fetch(queryString)
-  .then(res => res.json())
-  .then((fetched) => {
-    setLikes(fetched.count);
-    setLiked(fetched.likedByUser);
-    return;
-  })
-  .catch(err => console.log('Scription GET likes ERROR: ', err));
+    return setTuneRendered(true); // do I need this?
+  }, [tuneRendered, commentsFetched, scrObj._id, scrObj.abc, newCommentSubmitted, likes, liked, myContext]);
 
   const addLike = () => {
     fetch('/api/likes', {
@@ -80,7 +87,7 @@ const Scription = ({ scrObj, myContext }) => {
         'Content-Type': 'Application/JSON'
       },
       body: JSON.stringify({
-        user_id: 1,           // hard-coded for now
+        user_id: USER_ID,           // hard-coded for now
         scription_id: scrObj._id
       })
     })

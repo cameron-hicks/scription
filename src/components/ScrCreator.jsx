@@ -36,7 +36,7 @@ G,3 z | A, B, C2 | D4 |E1/2F1/2 G1/2A1/2 A1/2G1/2 F1/2E1/2 | B c d e1/4f1/4g1/4a
       }).then((results) => {
           widget.setTune(visualObj[0], false, {})
                 .then(() => {
-                  console.log("Audio successfully loaded.");
+                  // console.log("Audio successfully loaded.");
                 }).catch(function (error) {
                   console.warn("Problem initiating playback:", error);
                 });
@@ -45,7 +45,7 @@ G,3 z | A, B, C2 | D4 |E1/2F1/2 G1/2A1/2 A1/2G1/2 F1/2E1/2 | B c d e1/4f1/4g1/4a
       });
     }
     return setRendered(true);
-  }, [previewRendered, newAbc]);
+  }, [previewRendered, newAbc, myContext]);
 
   const create = () => {
     fetch('/api/', {

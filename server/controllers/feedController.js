@@ -103,6 +103,7 @@ feedController.getLikes = (req, res, next) => {
 
   let { id, user_id } = req.query;
   user_id = user_id - 0;  // type coerce to number
+  // console.log('Getting likes for user ', user_id);
 
   const query = 
   `SELECT *
@@ -111,10 +112,10 @@ feedController.getLikes = (req, res, next) => {
 
   db.query(query, (error, response) => {
     if(error) {
-      console.log('getComments ERROR: ', error);
+      console.log('getLikes ERROR: ', error);
       return next(error);
     }
-
+    // console.log('likes: ', response.rows);
     const count = response.rowCount;
     const likedByUser = response.rows.reduce((accm, curr) => curr.user_id === user_id, false);
 
@@ -140,7 +141,7 @@ feedController.addLike = (req, res, next) => {
 
   db.query(query, (error, response) => {
     if(error) {
-      console.log('addComment ERROR: ', error);
+      console.log('addLike ERROR: ', error);
       return next(error);
     }
 
