@@ -38,6 +38,11 @@
     box-shadow: 0px 1px 3px;
   }
 
+  .liked:hover {
+    background-color: $peach;
+  }
+
+
   .Scription-likes {
     display: flex;
     justify-content: space-between;

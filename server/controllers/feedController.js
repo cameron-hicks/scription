@@ -20,7 +20,7 @@ feedController.getScriptions = (req, res, next) => {
       console.log('getScriptions ERROR: ', error);
       return next(error);
     }
-    // console.log(response.rows);
+
     res.locals = response.rows;
     next();
   })
@@ -48,12 +48,14 @@ feedController.getComments = (req, res, next) => {
   });
 };
 
+
 feedController.getSong = (req, res, next) => {
   // based on title of incoming scription, get or upsert song record
   // add song's _id to res.locals as song_id
-  res.locals.song_id = '2';   // hardcoded for now
+  res.locals.song_id = null;   // hardcoded for now
   return next();
 }
+
 
 feedController.addScription = (req, res, next) => {
   console.log('Adding new scription to database...', req.body);
@@ -83,6 +85,57 @@ feedController.addComment = (req, res, next) => {
   const query = {
     text: 'INSERT INTO comments (user_id, scription_id, text) VALUES ($1, $2, $3)',
     values: [user_id, scription_id, text]
+  }
+
+  db.query(query, (error, response) => {
+    if(error) {
+      console.log('addComment ERROR: ', error);
+      return next(error);
+    }
+
+    return next();
+  });
+};
+
+
+feedController.getLikes = (req, res, next) => {
+  console.log('Getting likes...', req.query);
+
+  let { id, user_id } = req.query;
+  user_id = user_id - 0;  // type coerce to number
+
+  const query = 
+  `SELECT *
+  FROM likes
+  WHERE scription_id=` + id;
+
+  db.query(query, (error, response) => {
+    if(error) {
+      console.log('getComments ERROR: ', error);
+      return next(error);
+    }
+
+    const count = response.rowCount;
+    const likedByUser = response.rows.reduce((accm, curr) => curr.user_id === user_id, false);
+
+    res.locals = {
+      count,
+      likedByUser
+    };
+    return next();
+  });
+};
+
+
+feedController.addLike = (req, res, next) => {
+  console.log('Adding new like to database...', req.body);
+  let { user_id, scription_id } = req.body;
+  user_id = user_id - 0;  // type coerce to number
+  scription_id = scription_id - 0;  // type coerce to number
+
+  const query = {
+    text: 'INSERT INTO likes (user_id, scription_id) VALUES ($1, $2)',
+    values: [user_id, scription_id]
   }
 
   db.query(query, (error, response) => {

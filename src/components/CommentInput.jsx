@@ -17,7 +17,7 @@ const CommentInput = ({scription_id, setSubmitted}) => {
       })
     })
     .then(data => {
-      console.log('Successful comment submission: ', data);
+      // console.log('Successful comment submission: ', data);
       setComment('');
       setSubmitted(true);
     })

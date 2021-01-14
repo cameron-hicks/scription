@@ -3,16 +3,19 @@ import { useState, useEffect } from 'react';
 import CommentInput from './CommentInput';
 import ABCJS from 'abcjs';
 
+const USER_ID = 1;
+
 const Scription = ({ scrObj }) => { 
   const [tuneRendered, setTuneRendered ] = useState(false);
   const [comments, setComments] = useState([]);
   const [commentsFetched, setFetched] = useState(false);
   const [newCommentSubmitted, setCommentSubmitted] = useState(false);
-  const [liked, setLiked] = useState(false);
+  const [liked, setLiked] = useState(false);    // whether logged-in user has liked it
+  const [likes, setLikes] = useState(0);    // total likes it has
   
   useEffect(() => {
-    // fetch comments every time this scription re-renders
-    let queryString = `/api/comments?id=${scrObj._id}`;
+    // fetch comments and likes every time this scription re-renders
+    const queryString = `/api/comments?id=${scrObj._id}`;
     fetch(queryString)
     .then(res => res.json())
     .then((fetched) => {
@@ -22,29 +25,16 @@ const Scription = ({ scrObj }) => {
       setFetched(true);
       return;
     })
-    .catch(err => console.log('Scription.useEffect ERROR: ', err));
+    .catch(err => console.log('Scription GET comments ERROR: ', err));
 
-    setFetched(false);    // do I even need this piece of state anymore?
-
-    // fetch liked status
-    queryString = `/api/liked?id=${scrObj._id}`;
-    fetch(queryString)
-    .then(res => res.json())
-    .then((fetched) => {
-      if(!fetched) fetched = false;
-
-      setLiked(fetched);
-      return;
-    })
-    .catch(err => console.log('Scription.useEffect ERROR: ', err));
+    // setFetched(false);    // do I even need this piece of state anymore?
+    // TODO: fetch likes within useEffect without infinite loop
 
     //invoke ABCJS.renderAbc AFTER the component has mounted/updated
     ABCJS.renderAbc(
       `TuneId#${scrObj._id}`, 
       scrObj.abc, 
-      {
-        responsive: 'resize'
-      }
+      { responsive: 'resize' }
     );
 
     // set new comment flag to false
@@ -52,8 +42,36 @@ const Scription = ({ scrObj }) => {
     return setTuneRendered(true);
   }, [tuneRendered, commentsFetched, scrObj._id, scrObj.abc, newCommentSubmitted]);
 
-  const addLike = () => {
+  // fetch total likes and whether current user has liked it
+  const queryString = `/api/likes?id=${scrObj._id}&user_id=` + USER_ID;
+  fetch(queryString)
+  .then(res => res.json())
+  .then((fetched) => {
+    console.log(fetched);
+    setLikes(fetched.count);
+    setLiked(fetched.likedByUser);
+    return;
+  })
+  .catch(err => console.log('Scription GET likes ERROR: ', err));
 
+  const addLike = () => {
+    console.log('Adding like from Scription.jsx.');
+
+    fetch('/api/likes', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'Application/JSON'
+      },
+      body: JSON.stringify({
+        user_id: 1,           // hard-coded for now
+        scription_id: scrObj._id
+      })
+    })
+    .then(data => {
+      console.log('Successful like: ', data);
+      setLiked(true);
+    })
+    .catch(error => console.log('Scription addLike ERROR: ', error));
   }
 
   const mappedComments = comments.length ? 
@@ -78,10 +96,13 @@ const Scription = ({ scrObj }) => {
       </div>
       <div id={`TuneId#${scrObj._id}`}></div>
       <div className='Scription-likes'>
-        <span>Likes: {scrObj.likes || 0}</span>
+        <span>Likes: {likes}</span>
         <button className={liked ? "liked scription-btns" : "scription-btns"}
-          onClick={addLike}>
-            Like
+          onClick={() => {
+            if(!liked) addLike();
+            return;
+          }}>
+            {liked ?  <i className="fas fa-heart"></i> : <i className="far fa-heart"></i>}
           </button>
       </div>
       <div className="Scription-comments">    

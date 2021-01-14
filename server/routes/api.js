@@ -31,4 +31,18 @@ router.get('/comments',
   }
 );
 
+router.get('/likes',
+  feedController.getLikes,
+  (req, res) => {
+    res.status(200).json(res.locals);
+  }
+);
+
+router.put('/likes',
+  feedController.addLike,
+  (req, res) => {
+    res.status(200).json({status: "okay"});
+  }
+)
+
 module.exports = router;
