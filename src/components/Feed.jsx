@@ -2,11 +2,10 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import Scription from './Scription.jsx';
 
-const Feed = () => { 
+const Feed = ({myContext}) => { 
   const [scriptions, setScriptions] = useState([]);
   const [fetched, setFetched] = useState(false);
 
-  // send a get request to query database for scriptions; 
   // TODO: limit # of results
   useEffect(() => {
     fetch('/api')
@@ -22,7 +21,7 @@ const Feed = () => {
   }, [fetched]);
 
   const mappedScriptions = scriptions.map(scrObj =>
-    <Scription key={`Scription#${scrObj._id}`} scrObj={scrObj}/>
+    <Scription key={`Scription#${scrObj._id}`} scrObj={scrObj} myContext={myContext}/>
   );
 
   return (

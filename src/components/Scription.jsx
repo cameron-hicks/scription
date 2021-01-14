@@ -5,7 +5,7 @@ import ABCJS from 'abcjs';
 
 const USER_ID = 1;
 
-const Scription = ({ scrObj }) => { 
+const Scription = ({ scrObj, myContext }) => { 
   const [tuneRendered, setTuneRendered ] = useState(false);
   const [comments, setComments] = useState([]);
   const [commentsFetched, setFetched] = useState(false);
@@ -31,11 +31,31 @@ const Scription = ({ scrObj }) => {
     // TODO: fetch likes within useEffect without infinite loop
 
     //invoke ABCJS.renderAbc AFTER the component has mounted/updated
-    ABCJS.renderAbc(
+    const visualObj = ABCJS.renderAbc(
       `TuneId#${scrObj._id}`, 
       scrObj.abc, 
       { responsive: 'resize' }
     );
+    const synth = new ABCJS.synth.CreateSynth();
+    const widget = new ABCJS.synth.SynthController();
+
+    // display playback widget
+    widget.load(`#widget${scrObj._id}` || '', null, { displayPlay: true, displayProgress: false });
+
+    // load notes listed in ABC string
+    synth.init({
+      audioContext: myContext,
+      visualObj: visualObj[0],
+    }).then((results) => {
+        widget.setTune(visualObj[0], false, {})
+              .then(() => {
+                console.log("Audio successfully loaded.");
+              }).catch(function (error) {
+                console.warn("Problem initiating playback:", error);
+              });
+    }).catch((error) => {
+        console.warn('Problem buffering audio: ', error);
+    });
 
     // set new comment flag to false
     setCommentSubmitted(false);
@@ -47,7 +67,6 @@ const Scription = ({ scrObj }) => {
   fetch(queryString)
   .then(res => res.json())
   .then((fetched) => {
-    console.log(fetched);
     setLikes(fetched.count);
     setLiked(fetched.likedByUser);
     return;
@@ -55,8 +74,6 @@ const Scription = ({ scrObj }) => {
   .catch(err => console.log('Scription GET likes ERROR: ', err));
 
   const addLike = () => {
-    console.log('Adding like from Scription.jsx.');
-
     fetch('/api/likes', {
       method: 'PUT',
       headers: {
@@ -68,7 +85,6 @@ const Scription = ({ scrObj }) => {
       })
     })
     .then(data => {
-      console.log('Successful like: ', data);
       setLiked(true);
     })
     .catch(error => console.log('Scription addLike ERROR: ', error));
@@ -95,6 +111,8 @@ const Scription = ({ scrObj }) => {
         </p>
       </div>
       <div id={`TuneId#${scrObj._id}`}></div>
+      <div id={`widget${scrObj._id}`}></div>
+
       <div className='Scription-likes'>
         <span>Likes: {likes}</span>
         <button className={liked ? "liked scription-btns" : "scription-btns"}

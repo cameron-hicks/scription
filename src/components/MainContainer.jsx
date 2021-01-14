@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import Navbar from './Navbar.jsx';
 import Feed from './Feed.jsx';
 import ScrCreator from './ScrCreator.jsx';
+import ABCJS from 'abcjs';
 
 const MainContainer = () => {
   const [displayScrCreator, setDisplay] = useState(false);
+  let myContext = new AudioContext();
 
   return (
     <div className="mainWrapper">
@@ -19,9 +21,9 @@ const MainContainer = () => {
           </button>
         </div>
         <div className="MainContainer-content">
-          {displayScrCreator ? <ScrCreator /> : ''}
+          {displayScrCreator ? <ScrCreator myContext={myContext}/> : ''}
           <Navbar />
-          <Feed />
+          <Feed myContext={myContext}/>
         </div>
       </div>
       <footer>
