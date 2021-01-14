@@ -2,8 +2,10 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import ABCJS from 'abcjs';
 
+
+// assume user is logged in and their id is cached; no need to collect it
 const ScrCreator = () => { 
-  const [newName, setName] = useState('');
+  // const [newName, setName] = useState('');
   const [newTitle, setTitle] = useState('');
   const [newGenre, setGenre] = useState('');
   const [newAbc, setAbc] = useState('');
@@ -11,15 +13,34 @@ const ScrCreator = () => {
 
   useEffect(() => {
     //invoke ABCJS.renderAbc AFTER the component has mounted/updated
-    ABCJS.renderAbc('preview', newAbc, { responsive: 'resize' });
+    if (newAbc) ABCJS.renderAbc('preview', newAbc, { responsive: 'resize' });
     return setRendered(true);
   }, [previewRendered, newAbc]);
 
+  const create = () => {
+    // console.log(newTitle, newGenre, newAbc);
+    // fetch POST
+    fetch('/api/', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'Application/JSON'
+      },
+      body: JSON.stringify({
+        user_id: 2,           // hard-coded for now
+        title: newTitle,
+        genre: newGenre,
+        abc: newAbc
+      })
+    })
+    .then(res => res.json())
+    .then(data => console.log('Data from PUT response: ', data))
+    .catch(error => console.log('ScrCreator ERROR: ', error));
+  }
   
   return (
     <div className="ScrCreator">
       <form>
-        <input id="username-input" type="text" placeholder="username" onChange={(event) => setName(event.target.value)}></input>
+        {/* <input id="username-input" type="text" placeholder="username" onChange={(event) => setName(event.target.value)}></input> */}
         <input id="title-input" type="text" placeholder="song title" onChange={(event) => setTitle(event.target.value)}></input>
         <select id="genre-input" defaultValue="" onChange={(event) => setGenre(event.target.value)}>
           <option value="" disabled>genre</option>
@@ -40,7 +61,7 @@ const ScrCreator = () => {
         <div id="preview"></div>
 
         <div className="right-align-btns">
-          <button onClick={() => console.log(newName, newTitle, newGenre, newAbc)}>
+          <button onClick={create}>
             post <i className="fas fa-share-square"></i>
           </button>
         </div>

@@ -9,6 +9,14 @@ router.get('/',
   }
 );
 
+router.put('/',
+  feedController.getSong,
+  feedController.addScription,
+  (req, res) => {
+    res.status(200).send();
+  }
+)
+
 router.get('/comments',
   feedController.getComments,
   (req, res) => {
