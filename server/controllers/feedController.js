@@ -99,7 +99,7 @@ feedController.addComment = (req, res, next) => {
 
 
 feedController.getLikes = (req, res, next) => {
-  console.log('Getting likes...', req.query);
+  // console.log('Getting likes...', req.query);
 
   let { id, user_id } = req.query;
   user_id = user_id - 0;  // type coerce to number
@@ -128,7 +128,7 @@ feedController.getLikes = (req, res, next) => {
 
 
 feedController.addLike = (req, res, next) => {
-  console.log('Adding new like to database...', req.body);
+  // console.log('Adding new like to database...', req.body);
   let { user_id, scription_id } = req.body;
   user_id = user_id - 0;  // type coerce to number
   scription_id = scription_id - 0;  // type coerce to number
