@@ -18,8 +18,6 @@ const ScrCreator = () => {
   }, [previewRendered, newAbc]);
 
   const create = () => {
-    // console.log(newTitle, newGenre, newAbc);
-    // fetch POST
     fetch('/api/', {
       method: 'PUT',
       headers: {
@@ -60,7 +58,7 @@ const ScrCreator = () => {
         </textarea>
         <div id="preview"></div>
 
-        <div className="right-align-btns">
+        <div className="right-align-btns scription-btns">
           <button onClick={create}>
             post <i className="fas fa-share-square"></i>
           </button>

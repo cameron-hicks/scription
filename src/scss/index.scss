@@ -1,4 +1,4 @@
-@import '_variables', '_MainContainer', '_Navbar', '_Feed', '_Scription', '_ScrCreator';
+@import '_variables', '_MainContainer', '_Navbar', '_Feed', '_Scription', '_ScrCreator', '_CommentInput';
 
 // CSS reset
 
@@ -62,7 +62,7 @@ body {
   padding: 0;
   font-size: 1rem;
   line-height: 1.2rem;
-  background-color: $coolwhite;
+  background-color: $coolgray;
   position: relative;
   font-family: $sans;
   color: lighten($navy, 10%);
@@ -94,4 +94,20 @@ button {
     background-color: darken($peach, 5%);
     transition: background-color 500ms;
   }
+}
+
+input, textarea, select {
+  font-family: inherit;
+  font-size: 0.9rem;
+  color: inherit;
+  border: lightgray 1px solid;
+  outline: none;
+  padding: 5px 10px;
+  margin: 5px 0;
+}
+
+textarea {
+  width: 100%;
+  resize: none;
+  display: block;
 }

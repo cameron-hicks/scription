@@ -22,7 +22,7 @@ const Feed = () => {
   }, [fetched]);
 
   const mappedScriptions = scriptions.map(scrObj =>
-    <Scription key={`Scription#{scrObj.id}`} scrObj={scrObj}/>
+    <Scription key={`Scription#${scrObj._id}`} scrObj={scrObj}/>
   );
 
   return (

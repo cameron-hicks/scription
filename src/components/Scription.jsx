@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import CommentInput from './CommentInput';
 import ABCJS from 'abcjs';
 
 const Scription = ({ scrObj }) => { 
@@ -33,15 +34,17 @@ const Scription = ({ scrObj }) => {
   }, [tuneRendered, commentsFetched]);
 
 
-  const mappedComments = comments.map((comment, i) => {
-    return <div key={`Scr#${scrObj._id}Comment#${i}`}>
-      <p className="username">
-        {comment.username}
-        <span className="timestamp">{comment.timestamp}</span>
-      </p>
-      <p className="comment-text">{comment.text}</p>
-    </div>
-  });
+  const mappedComments = comments.length ? 
+    comments.map((comment, i) => {
+      return <div key={`Scr#${scrObj._id}Comment#${i}`}>
+        <p className="username">
+          {comment.username}
+          <span className="timestamp">{comment.timestamp}</span>
+        </p>
+        <p className="comment-text">{comment.text}</p>
+      </div>
+    }) :
+    <div>Be the first to comment...</div>;
 
   return (
     <div className="Scription">
@@ -52,9 +55,12 @@ const Scription = ({ scrObj }) => {
       <div id={`TuneId#${scrObj._id}`}></div>
       <div className='Scription-likes'>
         <span>Likes: {scrObj.likes || 0}</span>
-        <button>Like</button>
+        <button className="scription-btns">Like</button>
       </div>
-      <div className="Scription-comments">{mappedComments.length ? mappedComments : 'Be the first to comment...'}</div>
+      <div className="Scription-comments">    
+        {mappedComments}
+      </div>
+      <CommentInput />
     </div>
   );
 }
