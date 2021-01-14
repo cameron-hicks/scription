@@ -3,6 +3,34 @@
 .mainWrapper {
   position: relative;
 
+  .banner, footer {
+    width: 100vw;
+    background-color: $navy;
+    color: $peach;
+  }
+
+  .banner {
+    margin: 0 0 20px 0;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: flex-end;
+
+    select, input {
+      background-color: lighten($navy, 20%);
+      border-color: darken($navy, 20%);
+      margin-right: 5px;
+
+      &::placeholder {
+        color: $peach;
+      }
+    }
+
+    button {
+      padding: 6px 10px;
+      margin-right: 10px;
+    }
+  }
+
   .MainContainer {
     padding: 50px 50px 0 50px;
     overflow: visible;   // working?
@@ -35,13 +63,10 @@
   }
 
   footer {
-    width: 100vw;
     height: 150px;
     margin: 75px 0 0 0;
     padding: 50px;
     text-align: center;
-    background-color: #555b6e;
-    color: $peach;
     // position: absolute;
     // bottom: 0px;
 
