@@ -54,8 +54,20 @@
 
 @media only screen and (min-width: 825px) {
   .MainContainer {
-    width: 775px;
+    width: 90vw;
     padding: 50px 0 50px 0;
     margin: 0 auto;
+  }
+}
+
+@media only screen and (min-width: 1000px) {
+  .MainContainer {
+    width: 83vw;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .MainContainer {
+    width: 75vw;
   }
 }

@@ -1,31 +1,37 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
-const CommentInput = () => {
+const CommentInput = ({scription_id, setSubmitted}) => {
   const [newComment, setComment] = useState('');
 
   const submit = () => {
-    fetch('/api/comments/', {
+    fetch('/api/comments', {
       method: 'PUT',
       headers: {
         'Content-Type': 'Application/JSON'
       },
       body: JSON.stringify({
-        user_id: 4,           // hard-coded for now
-        scription_id: 2,
+        user_id: 1,           // hard-coded for now
+        scription_id,
         text: newComment
       })
     })
-    .then(res => res.json())
-    .then(data => console.log('Data from PUT response: ', data))
-    .catch(error => console.log('ScrCreator ERROR: ', error));
+    .then(data => {
+      console.log('Successful comment submission: ', data);
+      setComment('');
+      setSubmitted(true);
+    })
+    .catch(error => console.log('CommentInput ERROR: ', error));
   }
 
   return (
     <div id="CommentInput">
       <textarea placeholder="Comment..."
+        value={newComment}
         onChange={(event) => {
-          setComment(event.target.value);
+          console.log('event: ', event.target.value);
+          setComment(event.target.value)
+          console.log('newComment: ', newComment);
         }}>
       </textarea>
       {/* <div className="right-align-btns scription-btns"> */}

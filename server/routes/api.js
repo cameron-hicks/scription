@@ -13,7 +13,14 @@ router.put('/',
   feedController.getSong,
   feedController.addScription,
   (req, res) => {
-    res.status(200).send();
+    res.status(200).json({ status: 'okay' });
+  }
+);
+
+router.put('/comments',
+  feedController.addComment,
+  (req, res) => {
+    res.status(200).json({status: "okay"});
   }
 )
 
