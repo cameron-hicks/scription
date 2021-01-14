@@ -1,11 +1,39 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 import Scription from './Scription.jsx';
 
 const Feed = () => { 
-  // send a get request to query database for scriptions
-  // replace <Scription /> below with array of fetched Scriptions
+  const [scriptions, setScriptions] = useState([]);
+  const [fetched, setFetched] = useState(false);
 
-  // mock data to see the component render before fetch request is done
+  // send a get request to query database for scriptions; 
+  // TODO: limit # of results
+  useEffect(() => {
+    fetch('/api')
+      .then(res => res.json())
+      .then((fetched) => {
+        if(!fetched.length) fetched = [];
+
+        setScriptions(fetched);
+        setFetched(true);
+        return;
+      })
+      .catch(err => console.log('Feed.useEffect ERROR: ', err));
+  }, [fetched]);
+
+  const mappedScriptions = scriptions.map(scrObj =>
+    <Scription key={`Scription#{scrObj.id}`} scrObj={scrObj}/>
+  );
+
+  return (
+    <div className="Feed">
+      {mappedScriptions}
+    </div>
+  );
+}
+
+/*
+// mock data to see the component render before fetch request is done
   const scrObj = {
     id: 1,
     user: {   // joined via user_id
@@ -59,12 +87,8 @@ e>f ec|BA ce|A>B AF|FE E2:|`,
       }
     ]
   }
+*/
 
-  return (
-    <div className="Feed">
-      <Scription key={`Scription#{scrObj.id}`} scrObj={scrObj}/>
-    </div>
-  );
-}
+
 
 export default Feed;

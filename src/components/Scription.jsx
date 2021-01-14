@@ -4,42 +4,62 @@ import ABCJS from 'abcjs';
 
 const Scription = ({ scrObj }) => { 
   const [tuneRendered, setTuneRendered ] = useState(false);
+  // console.log('scrObj.comments: ', scrObj.comments);
+  const [comments, setComments] = useState([]);
+  const [commentsFetched, setFetched] = useState(false);
 
   // TODO: turn this into a separate React component and give each one a key
-  const mappedComments = scrObj.comments.map( comment => {
-    return <div>
-      <p className="username">
-        {comment.user.username}
-        <span className="timestamp">{comment.timestamp}</span>
-      </p>
-      <p className="comment-text">{comment.text}</p>
-    </div>
-  });
-
-
-  //invoke ABCJS.renderAbc AFTER the component has mounted/updated
+  const mappedComments = comments.map(comment => {
+      return <div>
+        <p className="username">
+          {comment.username}
+          <span className="timestamp">{comment.timestamp}</span>
+        </p>
+        <p className="comment-text">{comment.text}</p>
+      </div>
+    });
+  
   useEffect(() => {
-    const tuneArr = ABCJS.renderAbc(
+    // console.log('scrObj._id: ', scrObj._id);
+    // fetch comments on this scription
+    const queryString = `?id=${scrObj._id}`;
+    fetch('/api/comments' + queryString, {
+      method: 'GET',
+    })
+    .then(res => res.json())
+    .then((fetched) => {
+      if(!fetched.length) fetched = [];
+
+      setComments(fetched);
+      setFetched(true);
+      return;
+    })
+    .catch(err => console.log('Scription.useEffect ERROR: ', err));
+
+    //invoke ABCJS.renderAbc AFTER the component has mounted/updated
+    ABCJS.renderAbc(
       `TuneId#${scrObj.id}`, 
       scrObj.abc, 
       {
         responsive: 'resize'
       }
     );
-    console.log(tuneArr);
-    setTuneRendered(true);
-  }, [tuneRendered]);
+    return setTuneRendered(true);
+  }, [tuneRendered, commentsFetched]);
 
 
   return (
     <div className="Scription">
       <p className="username">
-        {scrObj.user.username}
+        {scrObj.username}
         <span className="timestamp">{scrObj.timestamp}</span>
       </p>
       <div id={`TuneId#${scrObj.id}`}></div>
-      <div>Likes: {scrObj.likes}</div>
-      <div className="Scription-comments">{mappedComments}</div>
+      <div>
+        <span>Likes: {scrObj.likes}</span>
+        <button>Like</button>
+      </div>
+      <div className="Scription-comments">{mappedComments.length ? mappedComments : 'Be the first to comment...'}</div>
     </div>
   );
 }

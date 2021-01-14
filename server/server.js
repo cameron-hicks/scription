@@ -52,10 +52,10 @@ app.use( (err, req, res, next) => {
     },
   };
   const errorObj = Object.assign(defaultErr);
-  errorObj.message = err; // expect to overwrite message param of defaultErr
-  errorObj.log = err;
-  console.log('Incoming error object: ', err);
-  // send(errorObj.message) or send(err.toString())?
+  errorObj.message = err.message; // expect to overwrite message param of defaultErr
+  if (err.status) errorObj.status = err.status;
+
+  console.log('ERROR: ', errorObj.message);
   res.status(errorObj.status).send(errorObj.message);   
 });
 

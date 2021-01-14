@@ -1,49 +1,53 @@
 @import '_variables';
 
-.MainContainer {
-  padding: 50px 50px 0 50px;
-  overflow-y: auto;   // working?
+.mainWrapper {
   position: relative;
 
-  h1 {
-    color: $navy;
-    font-size: 3rem;
-    margin: 20px 0 30px 0;
-    font-family: $display;
-  }
+  .MainContainer {
+    padding: 50px 50px 0 50px;
+    overflow: visible;   // working?
+    position: relative;
 
-  .MainContainer-btns {
-    display: flex;
-    justify-content: flex-end;
-
-    button {
-      margin-bottom: 15px;
+    h1 {
+      color: $navy;
+      font-size: 3rem;
+      margin: 20px 0 30px 0;
+      font-family: $display;
     }
-  } 
 
-  .MainContainer-content {
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
+    .MainContainer-btns {
+      display: flex;
+      justify-content: flex-end;
+
+      button {
+        margin-bottom: 15px;
+      }
+    } 
+
+    .MainContainer-content {
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+    }
   }
-}
 
-footer {
-  width: 100vw;
-  height: 150px;
-  margin: 75px 0 0 0;
-  padding: 50px;
-  text-align: center;
-  background-color: #555b6e;
-  color: $peach;
-  // position: absolute;
-  // bottom: 0px;
+  footer {
+    width: 100vw;
+    height: 150px;
+    margin: 75px 0 0 0;
+    padding: 50px;
+    text-align: center;
+    background-color: #555b6e;
+    color: $peach;
+    // position: absolute;
+    // bottom: 0px;
 
-  a:hover {
-    color: $coolwhite;
-    transition: color 500ms;
+    a:hover {
+      color: $coolwhite;
+      transition: color 500ms;
+    }
   }
 }
 
