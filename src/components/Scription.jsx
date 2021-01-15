@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import CommentInput from './CommentInput';
 import ABCJS from 'abcjs';
 
-const USER_ID = 3;
+const USER_ID = 6;
 
 const Scription = ({ scrObj, myContext }) => { 
   const [tuneRendered, setTuneRendered ] = useState(false);
@@ -130,9 +130,9 @@ const Scription = ({ scrObj, myContext }) => {
             {liked ?  <i className="fas fa-heart"></i> : <i className="far fa-heart"></i>}
           </button>
       </div>
-      <div className="Scription-comments">    
+      <section>    
         {mappedComments}
-      </div>
+      </section>
       <CommentInput 
         scription_id={scrObj._id} 
         setSubmitted={setCommentSubmitted}
