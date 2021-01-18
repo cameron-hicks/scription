@@ -37,6 +37,7 @@ module.exports = {
   },
   devServer: { 
     publicPath: '/build/',   // tells webpack where to put bundle.js    
+    headers: { 'Access-Control-Allow-Origin': '*' },    // allow cors
     proxy: {
       '/api': 'http://localhost:3000',
       // '/api': {

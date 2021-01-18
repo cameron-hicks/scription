@@ -5,7 +5,7 @@ import ScrCreator from './ScrCreator.jsx';
 
 const MainContainer = () => {
   const [displayScrCreator, setDisplay] = useState(false);
-  const [authStr, setAuthStr] = useState('false');
+  const [authStr, setAuthStr] = useState('');
   let myContext = new AudioContext();
 
   // TODO: finish forms (eg birthdate should be a date selector)
