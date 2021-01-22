@@ -10,7 +10,11 @@ Problem in the third measure? You can comment on a user's transcription to let t
 
 Upload your own "scription" using the Scription Creator, a sandbox where you can type in note names and see and hear an instantly updated preview of your composition. Save your in-progress scriptions to a "drafts" folder, and your favorite scriptions by others in a "favorites" folder. 
 
-## v. 1.0
+## To run:
+
+Scription is not yet in deployment. To play around in version 1.0, please clone this repo to your local machine. In your terminal, navigate to the Scription folder. Run `npm install` then `npm run prod`, then navigate to localhost:3000 in your browser. 
+
+<!-- ## v. 1.0
 
 ![scription home page screenshot](v.1.0header.png "Scription home page")
 
@@ -18,7 +22,7 @@ Upload your own "scription" using the Scription Creator, a sandbox where you can
 
 ![scription likes and comments screenshot](v.1.0likesandcomments.png "Likes and comments")
 
-![scription footer and feed scroll screenshot](v.1.0footer.png "Footer and feed scroll")
+![scription footer and feed scroll screenshot](v.1.0footer.png "Footer and feed scroll") -->
 
 
 ## Tech Stack
@@ -27,9 +31,9 @@ Built using React, Express, and PostgreSQL.
 
 Sheet music renderings and audio playback powered by [abcjs](https://github.com/paulrosen/abcjs).
 
-The database schema:
+<!-- The database schema:
 
-![scription relational database schema](postgresql-schema.jpg "Scription's Postgres schema")
+![scription relational database schema](postgresql-schema.jpg "Scription's Postgres schema") -->
 
 ### Completed Features
 
