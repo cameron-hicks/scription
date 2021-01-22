@@ -12,7 +12,7 @@ Upload your own "scription" using the Scription Creator, a sandbox where you can
 
 ## To run:
 
-Scription is not yet in deployment. To play around in version 1.0, please clone this repo to your local machine. In your terminal, navigate to the Scription folder. Run `npm install` then `npm run prod`, then navigate to localhost:3000 in your browser. 
+Scription is not yet in deployment. To play around in version 1.0, please fork and clone this repo to your local machine. In your terminal, navigate to the Scription folder. Run `npm install` then `npm run prod`, then navigate to localhost:3000 in your browser. 
 
 <!-- ## v. 1.0
 
