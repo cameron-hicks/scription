@@ -16,13 +16,13 @@ Scription is not yet in deployment. To play around in version 1.0, please fork a
 
 ## v. 1.0
 
-![scription home page screenshot](./public/assets/v.1.0header.png "Scription home page")
+![scription home page screenshot](public/assets/v.1.0header.png "Scription home page")
 
-![scription creator screenshot](./public/assets/v.1.0scriptioncreator.png "Scription Creator")
+![scription creator screenshot](public/assets/v.1.0scriptioncreator.png "Scription Creator")
 
-![scription likes and comments screenshot](./public/assets/v.1.0likesandcomments.png "Likes and comments")
+![scription likes and comments screenshot](public/assets/v.1.0likesandcomments.png "Likes and comments")
 
-![scription footer and feed scroll screenshot](./public/assets/v.1.0footer.png "Footer and feed scroll")
+![scription footer and feed scroll screenshot](public/assets/v.1.0footer.png "Footer and feed scroll")
 
 
 ## Tech Stack
@@ -33,7 +33,7 @@ Sheet music renderings and audio playback powered by [abcjs](https://github.com/
 
 The database schema:
 
-![scription relational database schema](./public/assets/postgresql-schema.jpg "Scription's Postgres schema")
+![scription relational database schema](public/assets/postgresql-schema.jpg "Scription's Postgres schema")
 
 ---
 
