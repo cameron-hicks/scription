@@ -15,23 +15,24 @@ Upload your own scription using the Scription Creator, a sandbox where you can t
 Scription is not yet in deployment. To play around in version 1.0, please fork and clone this repo to your local machine. In your terminal, navigate to the Scription folder. Run `npm install` then `npm run prod`, then navigate to localhost:3000 in your browser. 
 
 ## v. 1.0
-
+*Home page*
 ![scription home page screenshot](public/assets/v.1.0header.png "Scription home page")
 
+*Scription Creator*
 ![scription creator screenshot](public/assets/v.1.0scriptioncreator.png "Scription Creator")
 
-![scription likes and comments screenshot](public/assets/v.1.0likesandcomments.png "Likes and comments")
+*Likes and comments*
+![scription likes and comments screenshot](public/assets/v.1.0likescomments.png "Likes and comments")
 
+*Footer and feed scroll*
 ![scription footer and feed scroll screenshot](public/assets/v.1.0footer.png "Footer and feed scroll")
 
 
 ## Tech Stack
 
-Built using React, Express, and PostgreSQL.
+Built using React, Express, and PostgreSQL. Sheet music renderings and audio playback powered by [abcjs](https://github.com/paulrosen/abcjs).
 
-Sheet music renderings and audio playback powered by [abcjs](https://github.com/paulrosen/abcjs).
-
-The database schema:
+*Scription's relational database schema:*
 
 ![scription relational database schema](public/assets/postgresql-schema.jpg "Scription's Postgres schema")
 
