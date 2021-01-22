@@ -17,9 +17,9 @@ Built using React, Express, and PostgreSQL.
 Sheet music renderings and audio playback powered by [abcjs](https://github.com/paulrosen/abcjs).
 
 The database schema:
-![scription relational database schema](/public/assets/postgresql-schema.jpg)
+![scription relational database schema](public/assets/postgresql-schema.jpg)
 
-## Completed Features
+### Completed Features
 
 - create and share scriptions using the Scription Creator
 - see constantly-updating visual preview of sheet music as you type your scription
@@ -30,13 +30,13 @@ The database schema:
 - display comments and likes on each scription
 - play synthesized audio for each scription
 
-## In Progress
+### In Progress
 
-- user authentication: login and signup (UX and preliminary UI complete; database queries complete; server routes tk; cookies & sessions tk)
+- finish user authentication: server routes, cookies, and sessions for login and signup 
 - bug fix: duplicate scriptions being created
 - UX/UI for audio playback widgets
 
-## Upcoming Features
+### Upcoming Features
 
 - user folders: drafts and favorites
 - while commenting on a scription, user may fetch that scription, modify it, and share their updated version with changes highlighted
