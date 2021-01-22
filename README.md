@@ -12,13 +12,13 @@ Upload your own "scription" using the Scription Creator, a sandbox where you can
 
 ## v. 1.0
 
-![scription home page screenshot](v.1.0 header.jpg "Scription home page")
+![scription home page screenshot](v.1.0header.png "Scription home page")
 
-![scription creator screenshot](v.1.0 scription creator.jpg "Scription Creator")
+![scription creator screenshot](v.1.0scriptioncreator.png "Scription Creator")
 
-![scription likes and comments screenshot](v.1.0 likes and comments.jpg "Likes and comments")
+![scription likes and comments screenshot](v.1.0likesandcomments.png "Likes and comments")
 
-![scription footer and feed scroll screenshot](v.1.0 footer.jpg "Footer and feed scroll")
+![scription footer and feed scroll screenshot](v.1.0footer.png "Footer and feed scroll")
 
 
 ## Tech Stack
