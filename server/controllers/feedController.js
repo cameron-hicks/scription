@@ -27,7 +27,7 @@ feedController.getScriptions = (req, res, next) => {
 };
 
 feedController.getComments = (req, res, next) => {
-  console.log('Getting comments...');
+  // console.log('Getting comments...');
 
   const { id } = req.query;
   const query = 
