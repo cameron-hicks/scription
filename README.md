@@ -10,6 +10,17 @@ Problem in the third measure? You can comment on a user's transcription to let t
 
 Upload your own "scription" using the Scription Creator, a sandbox where you can type in note names and see and hear an instantly updated preview of your composition. Save your in-progress scriptions to a "drafts" folder, and your favorite scriptions by others in a "favorites" folder. 
 
+## v. 1.0
+
+![scription home page screenshot](v.1.0 header.jpg "Scription home page")
+
+![scription creator screenshot](v.1.0 scription creator.jpg "Scription Creator")
+
+![scription likes and comments screenshot](v.1.0 likes and comments.jpg "Likes and comments")
+
+![scription footer and feed scroll screenshot](v.1.0 footer.jpg "Footer and feed scroll")
+
+
 ## Tech Stack
 
 Built using React, Express, and PostgreSQL.
@@ -17,7 +28,8 @@ Built using React, Express, and PostgreSQL.
 Sheet music renderings and audio playback powered by [abcjs](https://github.com/paulrosen/abcjs).
 
 The database schema:
-![scription relational database schema](public/assets/postgresql-schema.jpg)
+
+![scription relational database schema](postgresql-schema.jpg "Scription's Postgres schema")
 
 ### Completed Features
 
