@@ -14,7 +14,7 @@ Upload your own scription using the Scription Creator, a sandbox where you can t
 
 Scription is not yet in deployment. To play around in version 1.0, please fork and clone this repo to your local machine. In your terminal, navigate to the Scription folder. Run `npm install` then `npm run prod`, then navigate to localhost:3000 in your browser. 
 
-To enable the database features, you'll need to make your own Postgres isntance and supply the connection string at line 3 of server/controllers/feedController.js. You can use the backup file dump.js to supply your instance with dummy data. 
+Until Scription is deployed, you'll need to make your own Postgres instance to enable the database features. Supply the connection string for your database at line 3 of server/controllers/feedController.js. You can execute the file dump.sql to supply it with dummy data. To do so, run this command in your terminal: `psql YOUR-CONNECTION-STRING-HERE -f dump.sql`. 
 
 ## v. 1.0
 *Home page*
