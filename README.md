@@ -62,6 +62,7 @@ Built using React, Express, and PostgreSQL. Sheet music renderings and audio pla
 
 - user folders: drafts and favorites
 - while commenting on a scription, user may fetch that scription, modify it, and share their updated version with changes highlighted
+- filter the feed using provided categories
 - easy transposition between keys and between clefs for scriptions saved in user's folders
 - audio playback will obey bpm if specified in the scription
 - create and save lists of scriptions
