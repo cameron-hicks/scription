@@ -14,6 +14,8 @@ Upload your own scription using the Scription Creator, a sandbox where you can t
 
 Scription is not yet in deployment. To play around in version 1.0, please fork and clone this repo to your local machine. In your terminal, navigate to the Scription folder. Run `npm install` then `npm run prod`, then navigate to localhost:3000 in your browser. 
 
+To enable the database features, you'll need to make your own Postgres isntance and supply the connection string at line 3 of server/controllers/feedController.js. You can use the backup file dump.js to supply your instance with dummy data. 
+
 ## v. 1.0
 *Home page*
 ![scription home page screenshot](public/assets/v.1.0header.png "Scription home page")
