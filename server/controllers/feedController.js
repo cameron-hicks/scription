@@ -1,4 +1,10 @@
-const db = require('../models/feedModels');
+const { Pool } = require('pg');
+// connect to database
+const PG_URI = require('../secrets.js').databaseURI;
+// create a new pool here using the connection string above
+const db = new Pool({
+  connectionString: PG_URI
+});
 
 const feedController = {};
   // TODO: limit # of results
