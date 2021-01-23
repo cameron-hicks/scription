@@ -2,31 +2,24 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import Scription from './Scription.jsx';
 
-const Feed = ({myContext}) => { 
-  const [scriptions, setScriptions] = useState([]);
-  const [fetched, setFetched] = useState(false);
+const Feed = ({myContext, scriptions}) => { 
 
-  // TODO: limit # of results
+  // use this as an idea for applying filters to the feed
+  /*
+  const myScriptions = useMemo(() => scriptions.filter(s => s.userId === self.id), [scriptions])
+  const letTheUserKnow = () => {
+    toast({title: `HEY YOU HAVE ${myScriptions.length} NEW DATA LOOK`});
+  }
   useEffect(() => {
-    fetch('/api')
-      .then(res => res.json())
-      .then((fetched) => {
-        if(!fetched.length) fetched = [];
-
-        setScriptions(fetched);
-        setFetched(true);
-        return;
-      })
-      .catch(err => console.log('Feed.useEffect ERROR: ', err));
-  }, [fetched]);
-
-  const mappedScriptions = scriptions.map(scrObj =>
-    <Scription key={`Scription#${scrObj._id}`} scrObj={scrObj} myContext={myContext}/>
-  );
+    letTheUserKnow()
+  }, [myScriptions, letTheUserKnow])
+  */
 
   return (
     <div className="Feed">
-      {mappedScriptions}
+      {scriptions.map(scrObj =>
+        <Scription key={`Scription#${scrObj._id}`} scrObj={scrObj} myContext={myContext}/>
+      )}
     </div>
   );
 }

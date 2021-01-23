@@ -2,6 +2,7 @@ import React from 'react';
 
 const Navbar = () => {
   // useState hook here, or pass down props?
+  const genres = [{name: "pop", link: "#"}]
 
   return (
     <div className="Navbar">

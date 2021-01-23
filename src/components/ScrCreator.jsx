@@ -2,9 +2,9 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import ABCJS from 'abcjs';
 
-
+const PREVIEW_ID = "preview"
 // assume user is logged in and their id is cached; no need to collect it
-const ScrCreator = ({myContext}) => { 
+const ScrCreator = ({myContext, onCreate}) => { 
   const [newTitle, setTitle] = useState('');
   const [newGenre, setGenre] = useState('');
   const [newAbc, setAbc] = useState(
@@ -17,17 +17,17 @@ Q: Beats per minute (optional)
 R: Rhythm (optional)
 G, A, B, C | D E F G | A B c d | e f g a | b c' d' e' | f'2 g'2 ||
 G,3 z | A, B, C2 | D4 |E1/2F1/2 G1/2A1/2 A1/2G1/2 F1/2E1/2 | B c d e1/4f1/4g1/4a1/4 | b c' d' e' | f'2 g'2 |]`);
-  const [previewRendered, setRendered ] = useState(false);
 
   useEffect(() => {
     //invoke ABCJS.renderAbc AFTER the component has mounted/updated
     if (newAbc) {
-      const visualObj = ABCJS.renderAbc('preview', newAbc, { responsive: 'resize' });
+      const abcOptions = { responsive: 'resize' };
+      const visualObj = ABCJS.renderAbc(PREVIEW_ID, newAbc, abcOptions);
       const synth = new ABCJS.synth.CreateSynth();
       const widget = new ABCJS.synth.SynthController();
 
       // display playback widget
-      widget.load('#widget' || '', null, { displayPlay: true, displayProgress: false });
+      widget.load('#widget', null, { displayPlay: true, displayProgress: false });
 
       // load notes listed in ABC string
       synth.init({
@@ -44,10 +44,9 @@ G,3 z | A, B, C2 | D4 |E1/2F1/2 G1/2A1/2 A1/2G1/2 F1/2E1/2 | B c d e1/4f1/4g1/4a
           console.warn('Problem buffering audio: ', error);
       });
     }
-    return setRendered(true);
-  }, [previewRendered, newAbc, myContext]);
+  }, [newAbc, myContext]);
 
-  const create = () => {
+  const create = useCallback(() => {
     fetch('/api/', {
       method: 'PUT',
       headers: {
@@ -61,9 +60,16 @@ G,3 z | A, B, C2 | D4 |E1/2F1/2 G1/2A1/2 A1/2G1/2 F1/2E1/2 | B c d e1/4f1/4g1/4a
       })
     })
     .then(res => res.json())
-    .then(data => console.log('Data from PUT response: ', data))
+    .then(data => {
+      console.log('Data from PUT response: ', data)
+      props.onCreate()
+    })
     .catch(error => console.log('ScrCreator ERROR: ', error));
-  }
+  }, [])
+  const a = true;
+  useEffect(() => {
+    
+  }, [a])
   
   return (
     <div className="ScrCreator">
@@ -81,11 +87,10 @@ G,3 z | A, B, C2 | D4 |E1/2F1/2 G1/2A1/2 A1/2G1/2 F1/2E1/2 | B c d e1/4f1/4g1/4a
           value={newAbc}
           onChange={(event) => {
             setAbc(event.target.value);
-            setRendered(false);
           }}> 
         </textarea>
         <a className="right-align-btns" href="https://www.biteyourownelbow.com/abcnotation.htm" target="_blank" rel="noopener noreferrer"><small>(Click here for an explanation of ABC notation.)</small></a>
-        <div id="preview"></div>
+        <div id={PREVIEW_ID}></div>
         {/* <div id="errors"></div> */}
         <div className="right-align-btns" id="widget"></div>
 

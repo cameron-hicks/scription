@@ -7,7 +7,24 @@ const MainContainer = () => {
   const [displayScrCreator, setDisplay] = useState(false);
   const [authStr, setAuthStr] = useState('');
   let myContext = new AudioContext();
+  const [scriptions, setScriptions] = useState([]);
+  // const [fetched, setFetched] = useState(false); // an empty dependency array will prevent an infinite loop
+  const fetchScriptions = useCallback(() => {
+    fetch('/api')
+      .then(res => res.json())
+      .then((fetched) => {
+        if(!fetched.length) fetched = [];
 
+        setScriptions(fetched);
+        // setFetched(true);
+        return;
+      })
+      .catch(err => console.log('Feed.useEffect ERROR: ', err));
+  }, [])
+  // TODO: limit # of results
+  useEffect(() => {
+    fetchScriptions()
+  }, []);
   // TODO: finish forms (eg birthdate should be a date selector)
   const auth = (authStr) => {
     switch(authStr){
@@ -50,14 +67,14 @@ const MainContainer = () => {
         </header>
         <div className="right-align-btns">
           <button onClick={() => setDisplay(!displayScrCreator)}>
-            {displayScrCreator ? 'cancel ' : 'New Scription'}
-            {displayScrCreator ? <i className="fas fa-times"></i> : '' }
+            {displayScrCreator ? 'Cancel ' : 'New Scription'}
+            {displayScrCreator && <i className="fas fa-times"></i>}
           </button>
         </div>
         <div className="MainContainer-content">
-          {displayScrCreator ? <ScrCreator myContext={myContext}/> : ''}
+          {displayScrCreator ? <ScrCreator myContext={myContext} onCreate={() => fetchScriptions()} /> : ''}
           <Navbar />
-          <Feed myContext={myContext}/>
+          <Feed myContext={myContext} scriptions={scriptions} />
         </div>
       </div>
       <footer>
