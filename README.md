@@ -14,6 +14,8 @@ Upload your own scription using the Scription Creator, a sandbox where you can t
 
 Scription is not yet in deployment. To play around in version 1.0, please fork and clone this repo to your local machine. In your terminal, navigate to the Scription folder. Run `npm install` then `npm run prod`, then navigate to localhost:3000 in your browser. 
 
+Until Scription is deployed, you'll need to make your own Postgres instance to enable the database features. Supply the connection string for your database at line 3 of server/controllers/feedController.js. You can execute the file dump.sql to supply it with dummy data. To do so, run this command in your terminal: `psql YOUR-CONNECTION-STRING-HERE -f dump.sql`. 
+
 ## v. 1.0
 *Home page*
 ![scription home page screenshot](public/assets/v.1.0header.png "Scription home page")
@@ -60,6 +62,7 @@ Built using React, Express, and PostgreSQL. Sheet music renderings and audio pla
 
 - user folders: drafts and favorites
 - while commenting on a scription, user may fetch that scription, modify it, and share their updated version with changes highlighted
+- filter the feed using provided categories
 - easy transposition between keys and between clefs for scriptions saved in user's folders
 - audio playback will obey bpm if specified in the scription
 - create and save lists of scriptions
