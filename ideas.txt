@@ -1,0 +1,11 @@
+Private sandbox to use and learn ABC in. Interactive tutorial. This site needs to be fun to use even if no one else is on!
+
+Upcoming Features
+user folders: drafts and favorites
+while commenting on a scription, user may fetch that scription, modify it, and share their updated version with changes highlighted
+filter the feed using provided categories
+easy transposition between keys and between clefs for scriptions saved in user's folders
+audio playback will obey bpm if specified in the scription
+create and save lists of scriptions
+validate input from Scription Creator
+forgot/reset password

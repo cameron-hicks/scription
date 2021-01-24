@@ -48,13 +48,14 @@ G,3 z | A, B, C2 | D4 |E1/2F1/2 G1/2A1/2 A1/2G1/2 F1/2E1/2 | B c d e1/4f1/4g1/4a
   }, [previewRendered, newAbc, myContext]);
 
   const create = () => {
+    console.log('Creating new scription');
+
     fetch('/api/', {
       method: 'PUT',
       headers: {
         'Content-Type': 'Application/JSON'
       },
       body: JSON.stringify({
-        user_id: 2,           // hard-coded for now
         title: newTitle,
         genre: newGenre,
         abc: newAbc
