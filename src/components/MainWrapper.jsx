@@ -21,13 +21,15 @@ const MainWrapper = () => {
     <div className="main-wrapper">
       <header className="banner">
         <h1>Scription</h1>
-        {/* control whether an auth component renders, and which type of auth component, using a drop-down menu and a cancel button */}
-        {authType && <button><i className="fas fa-times" onClick={() => setAuthType('')}></i></button>}
-        <select defaultValue="" placeholder="" onChange={(event) => setAuthType(event.target.value)}>
-        <option value="" disabled>log in/sign up</option>
-          <option value="login">log in</option>
-          <option value="signup">sign up</option>
-        </select>
+        {/* control whether an auth component renders, and which type of auth component */}
+        <div className="auth-btns">
+          {authType && <button id="cancel-auth"><i className="fas fa-times" onClick={() => setAuthType('')}></i></button>}
+          <select defaultValue="" placeholder="" onChange={(event) => setAuthType(event.target.value)}>
+          <option value="" disabled>log in/sign up</option>
+            <option value="login">log in</option>
+            <option value="signup">sign up</option>
+          </select>
+        </div>
       </header>
 
       {authType && displayAuthForm(authType)}

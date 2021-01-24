@@ -5,6 +5,7 @@ const Signup = () => {
 
   return (
     <div className="auth-container">
+      <h2>Create an Account</h2>
       <form>
         <input type="text" placeholder="username"></input>
         <input type="password" placeholder="password"></input>

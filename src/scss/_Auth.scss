@@ -1,17 +1,22 @@
 .auth-container {
   width: 100%;
-  height: 100%;
+  height: 80%;
   margin: 0;
-  padding: 0;
-  position: absolute;
-  z-index: 1;
+  padding: 15vh 0 0 0;
+  text-align: center;
   background-color: $navy;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: space-around;
+  // align-items: center;
+
+  h2 {
+    color: $coolgray;
+  }
 
   form {
-    margin-top: 25vh;
+    width: fit-content;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
