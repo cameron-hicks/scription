@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import Scription from './Scription.jsx';
 
-const Feed = ({myContext}) => { 
+const Feed = ({audioContext}) => { 
   const [scriptions, setScriptions] = useState([]);
   const [fetched, setFetched] = useState(false);
 
@@ -21,7 +21,7 @@ const Feed = ({myContext}) => {
   }, [fetched]);
 
   const mappedScriptions = scriptions.map(scrObj =>
-    <Scription key={`Scription#${scrObj._id}`} scrObj={scrObj} myContext={myContext}/>
+    <Scription key={`Scription#${scrObj._id}`} scrObj={scrObj} audioContext={audioContext}/>
   );
 
   return (

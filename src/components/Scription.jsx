@@ -2,10 +2,11 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import CommentInput from './CommentInput';
 import ABCJS from 'abcjs';
+import 'abcjs/abcjs-audio.css';     // playback widget
 
 const USER_ID = 6;
 
-const Scription = ({ scrObj, myContext }) => { 
+const Scription = ({ scrObj, audioContext }) => { 
   const [tuneRendered, setTuneRendered ] = useState(false);
   const [comments, setComments] = useState([]);
   const [commentsFetched, setFetched] = useState(false);
@@ -53,11 +54,11 @@ const Scription = ({ scrObj, myContext }) => {
       const widget = new ABCJS.synth.SynthController();
   
       // display playback widget
-      widget.load(`#widget${scrObj._id}` || '', null, { displayPlay: true, displayProgress: false });
+      widget.load(`#widget${scrObj._id}` || '', null, { displayPlay: true, displayProgress: true });
   
       // load notes listed in ABC string
       synth.init({
-        audioContext: myContext,
+        audioContext,
         visualObj: visualObj[0],
       }).then((results) => {
           widget.setTune(visualObj[0], false, {})
@@ -78,7 +79,7 @@ const Scription = ({ scrObj, myContext }) => {
     // set new comment flag to false
     setCommentSubmitted(false);
     return setTuneRendered(true); // do I need this?
-  }, [tuneRendered, commentsFetched, scrObj._id, scrObj.abc, newCommentSubmitted, likes, liked, myContext]);
+  }, [tuneRendered, commentsFetched, scrObj._id, scrObj.abc, newCommentSubmitted, likes, liked, audioContext]);
 
   const addLike = () => {
     fetch('/api/likes', {

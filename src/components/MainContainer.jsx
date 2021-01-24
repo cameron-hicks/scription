@@ -6,7 +6,7 @@ import ScrCreator from './ScrCreator.jsx';
 const MainContainer = () => {
   const [displayScrCreator, setDisplay] = useState(false);
   const [authStr, setAuthStr] = useState('');
-  let myContext = new AudioContext();
+  let audioContext = new AudioContext();
 
   // TODO: finish forms (eg birthdate should be a date selector)
   const auth = (authStr) => {
@@ -50,14 +50,14 @@ const MainContainer = () => {
         </header>
         <div className="right-align-btns">
           <button onClick={() => setDisplay(!displayScrCreator)}>
-            {displayScrCreator ? 'cancel ' : 'New Scription'}
+            {displayScrCreator || 'New Scription'}
             {displayScrCreator ? <i className="fas fa-times"></i> : '' }
           </button>
         </div>
         <div className="MainContainer-content">
-          {displayScrCreator ? <ScrCreator myContext={myContext}/> : ''}
+          {displayScrCreator ? <ScrCreator audioContext={audioContext}/> : ''}
           <Navbar />
-          <Feed myContext={myContext}/>
+          <Feed audioContext={audioContext}/>
         </div>
       </div>
       <footer>

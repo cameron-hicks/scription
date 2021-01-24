@@ -1,10 +1,11 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import ABCJS from 'abcjs';
+import 'abcjs/abcjs-audio.css';   // playback widget
 
 
 // assume user is logged in and their id is cached; no need to collect it
-const ScrCreator = ({myContext}) => { 
+const ScrCreator = ({audioContext}) => { 
   const [newTitle, setTitle] = useState('');
   const [newGenre, setGenre] = useState('');
   const [newAbc, setAbc] = useState(
@@ -27,11 +28,11 @@ G,3 z | A, B, C2 | D4 |E1/2F1/2 G1/2A1/2 A1/2G1/2 F1/2E1/2 | B c d e1/4f1/4g1/4a
       const widget = new ABCJS.synth.SynthController();
 
       // display playback widget
-      widget.load('#widget' || '', null, { displayPlay: true, displayProgress: false });
+      widget.load('#widget', null, { displayPlay: true, displayProgress: true });
 
       // load notes listed in ABC string
       synth.init({
-        audioContext: myContext,
+        audioContext,
         visualObj: visualObj[0],
       }).then((results) => {
           widget.setTune(visualObj[0], false, {})
@@ -45,7 +46,7 @@ G,3 z | A, B, C2 | D4 |E1/2F1/2 G1/2A1/2 A1/2G1/2 F1/2E1/2 | B c d e1/4f1/4g1/4a
       });
     }
     return setRendered(true);
-  }, [previewRendered, newAbc, myContext]);
+  }, [previewRendered, newAbc, audioContext]);
 
   const create = () => {
     console.log('Creating new scription');
@@ -88,7 +89,7 @@ G,3 z | A, B, C2 | D4 |E1/2F1/2 G1/2A1/2 A1/2G1/2 F1/2E1/2 | B c d e1/4f1/4g1/4a
         <a className="right-align-btns" href="https://www.biteyourownelbow.com/abcnotation.htm" target="_blank" rel="noopener noreferrer"><small>(Click here for an explanation of ABC notation.)</small></a>
         <div id="preview"></div>
         {/* <div id="errors"></div> */}
-        <div className="right-align-btns" id="widget"></div>
+        <div id="widget"></div>
 
         <div className="right-align-btns scription-btns">
           <button onClick={create}>
