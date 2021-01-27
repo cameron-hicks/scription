@@ -2,6 +2,7 @@ const express = require("express");
 const path = require('path');
 const cors = require("cors");
 const apiRouter = require('./routes/api');
+const helmet = require ('helmet');
 
 const app = express();
 
@@ -10,6 +11,8 @@ var corsOptions = {
 };
 
 app.use(cors(corsOptions));
+// 11 middleware for more-secure headers
+app.use(helmet());
 // parse request bodies of content-type application/json
 app.use(express.json());
 // statically serve everything in the build folder 
