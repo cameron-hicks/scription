@@ -1,3 +1,11 @@
+AUTH TO-DOS
+[] middleware
+[] bcrypt
+[] cookies and sessions
+[] input validation on the frontend, plus toasts
+[] two-factor authentication
+
+
 Private sandbox to use and learn ABC in. Interactive tutorial. This site needs to be fun to use even if no one else is on!
 
 Upcoming Features
@@ -9,3 +17,7 @@ audio playback will obey bpm if specified in the scription
 create and save lists of scriptions
 validate input from Scription Creator
 forgot/reset password
+
+Make genre navbar slide out from the side in smaller viewports. Tutorial: https://web.dev/building-a-sidenav-component/
+
+Implement Relay? https://relay.dev/docs/en/introduction-to-relay "Relay couples React with GraphQL and develops the idea of encapsulation further. It allows components to specify what data they need and the Relay framework provides the data. This makes the data needs of inner components opaque and allows composition of those needs. Thinking about what data an app needs becomes localized to the component making it easier to reason about what fields are needed or no longer needed."
