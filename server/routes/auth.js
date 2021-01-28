@@ -1,16 +1,17 @@
 const express = require('express');
 const authController = require('../controllers/authController');
+const auth = authController();
 const router = express.Router();
 
 router.post('/signup', 
-  authController.addUser,
-  authController.setCookie,
+  auth.addUser,
+  auth.setCookie,
   (req, res) => res.status(200).json({ status: 'okay' })
 );
 
 router.post('/login', 
-  authController.attemptLogin,
-  authController.setCookie,
+  auth.attemptLogin,
+  auth.setCookie,
   (req, res) => res.status(200).json({ status: 'okay' })
 );
 

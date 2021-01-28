@@ -7,10 +7,9 @@ const db = new Pool({
 });
 
 const authController = (req, res, next) => {
-  const { username, password, birthdate } = req.body;
-  const crypt = 'Hi I\'ve been bcrypted';   // TODO
-
-  const addUser = (req, res, next) => {
+  const addUser = () => {
+    const { username, password, birthdate } = req.body;
+    const crypt = 'Hi I\'ve been bcrypted';   // TODO
     // query. TODO: check syntax for returning a value from insert operation
     // also TODO: how to check for uniqueness within the same query
     const query = 'INSERT INTO users (username, password, birthdate) VALUES ($1, $2, $3) RETURNING _id';
@@ -25,7 +24,10 @@ const authController = (req, res, next) => {
     })
   };
 
-  const attemptLogin = (req, res, next) => {
+  const attemptLogin = () => {
+    const { username, password } = req.body;
+    const crypt = 'Hi I\'ve been bcrypted';   // TODO
+
     const query = {
       text: 'SELECT _id FROM users WHERE username = $1 AND password = $2',
       values: [username, crypt]
@@ -46,7 +48,7 @@ const authController = (req, res, next) => {
     })
   };
 
-  const setCookie = (req, res, next) => {
+  const setCookie = () => {
     const { userID } = res.locals;
   
     res.cookie('userID', userID, { 

@@ -10,8 +10,7 @@ const db = new Pool({
 // const USER_ID = 2;      
   // TODO: limit # of results
 
-const feedController = (req, res, next) => {
-  const userID = cookieParser.signedCookie(req.cookies.userID, COOKIE_SIG);
+const feedController = {};
 
   const getScriptions = (req, res, next) => {
     console.log('Getting scriptions...');
