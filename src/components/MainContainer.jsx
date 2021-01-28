@@ -9,17 +9,12 @@ const MainContainer = () => {
 
   return (
       <main className="MainContainer">
-        <div className="right-align-btns">
-          <button onClick={() => setShow(!showScrCreator)}>
-            {showScrCreator || 'New Scription'}
-            {showScrCreator ? <i className="fas fa-times"></i> : '' }
-          </button>
-        </div>
-        <div className="MainContainer-content">
-          {showScrCreator && <ScrCreator audioContext={audioContext}/> }
-          <Navbar />
-          <Feed audioContext={audioContext}/>
-        </div>
+        <button onClick={() => setShow(!showScrCreator)}>
+          {showScrCreator ? <i className="fas fa-times"></i> : 'New Scription' }
+        </button>
+        {showScrCreator && <ScrCreator audioContext={audioContext}/> }
+        <Navbar />
+        <Feed audioContext={audioContext}/>
       </main>
   );
 }

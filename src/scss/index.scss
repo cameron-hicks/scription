@@ -111,6 +111,11 @@ textarea {
   display: block;
 }
 
+.right-align {
+  display: flex;
+  justify-content: flex-end;
+}
+
 h2, h3, h4 {
   font-family: $sans;
   margin: 20px 0;
