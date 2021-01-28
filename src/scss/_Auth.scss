@@ -12,6 +12,7 @@
 
   h2 {
     color: $coolgray;
+    // font-family: $serif;
   }
 
   form {
@@ -21,16 +22,30 @@
     flex-direction: column;
     align-items: center;
 
+    label {
+      color: $coolgray;
+    }
+
     select, input {
       display: block;
       background-color: lighten($navy, 20%);
       border-color: darken($navy, 20%);
       padding: 5px 10px;
       height:fit-content;
+      color: $peach;
 
       &::placeholder {
-        color: $peach;
+        color: inherit;
       }
+    }
+
+    .birthday {
+      display: inline;
+      width: 45px;
+    }
+
+    #year {
+      width: 55px;
     }
 
     button {
