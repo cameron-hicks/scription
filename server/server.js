@@ -1,7 +1,10 @@
 const express = require("express");
 const path = require('path');
 const cors = require("cors");
+const cookieParser = require('cookie-parser');
+const { COOKIE_SIG } = require('./secrets.js');
 const apiRouter = require('./routes/api');
+const authRouter = require('./controllers/authRouter');
 
 const app = express();
 
@@ -12,10 +15,14 @@ var corsOptions = {
 app.use(cors(corsOptions));
 // parse request bodies of content-type application/json
 app.use(express.json());
+// use signed cookies
+app.use(cookieParser(COOKIE_SIG));
 // statically serve everything in the build folder 
 app.use('/build/', express.static(path.join(__dirname, '../build')));
 // route all API requests through api.js
 app.use('/api', apiRouter);
+// route all auth requests through auth.js
+app.use('/auth', authRouter);
 
 
 // serve index.html on the route '/'
@@ -23,13 +30,6 @@ app.get('/', (req, res) => {
   return res.status(200)
             .sendFile(path.join(__dirname, '../public/index.html'));
 });
-
-// serve styles
-// app.get('/index.scss', (req, res) => {
-//   return res.status(200)
-//             .header({ 'Content-Type': 'text/css; charset=UTF-8' })
-//             .sendFile(path.join(__dirname, '../src/scss/index.scss'));
-// });
 
 
 //ERROR HANDLING

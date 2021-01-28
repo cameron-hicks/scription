@@ -1,12 +1,19 @@
 AUTH TO-DOS
-[] middleware
+[] try out position: sticky to get the header and footer in the right place
+[] choose font for h2
+[X] middleware
 [] bcrypt
-[] cookies and sessions
+[X] cookies
+[] test routes
 [] input validation on the frontend, plus toasts
-[] two-factor authentication
+[] research two-factor authentication
+[] research how to implement forgotten/reset password
 
+SECURITY TO-DOS
+[] read this and make to-dos: https://expressjs.com/en/advanced/best-practice-security.html
 
-Private sandbox to use and learn ABC in. Interactive tutorial. This site needs to be fun to use even if no one else is on!
+NEXT BIG FEATURE
+Private sandbox to use and learn ABC in. Interactive tutorial. This site needs to be fun to use even if no one else is on it!
 
 Upcoming Features
 user folders: drafts and favorites

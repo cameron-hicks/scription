@@ -7,11 +7,11 @@ const db = new Pool({
 });
 
 // const feedController = {};
-// const USER_ID = 2;      // TODO: replace with cookies
+// const USER_ID = 2;      
   // TODO: limit # of results
 
 const feedController = (req, res, next) => {
-  cookieParser.signedCookie(req.cookies.userID, COOKIE_SIG);
+  const userID = cookieParser.signedCookie(req.cookies.userID, COOKIE_SIG);
 
   const getScriptions = (req, res, next) => {
     console.log('Getting scriptions...');
@@ -58,14 +58,12 @@ const feedController = (req, res, next) => {
     });
   };
   
-  
   const getSong = (req, res, next) => {
     // based on title of incoming scription, get or upsert song record
     // add song's _id to res.locals as song_id
     res.locals.song_id = null;   // hardcoded for now
     return next();
   }
-  
   
   const addScription = (req, res, next) => {
     console.log('Adding new scription to database...', req.body);
@@ -74,7 +72,7 @@ const feedController = (req, res, next) => {
   
     const query = {
       text: 'INSERT INTO scriptions (user_id, song_id, abc) VALUES ($1, $2, $3)',
-      values: [USER_ID, song_id, abc]
+      values: [userID, song_id, abc]
     }
   
     db.query(query, (error, response) => {
@@ -87,14 +85,13 @@ const feedController = (req, res, next) => {
     });
   };
   
-  
   const addComment = (req, res, next) => {
     // console.log('Adding new comment to database...', req.body);
     const { scription_id, text } = req.body;
   
     const query = {
       text: 'INSERT INTO comments (user_id, scription_id, text) VALUES ($1, $2, $3)',
-      values: [USER_ID, scription_id, text]
+      values: [userID, scription_id, text]
     }
   
     db.query(query, (error, response) => {
@@ -107,14 +104,12 @@ const feedController = (req, res, next) => {
     });
   };
   
-  
   // TODO: Can this be combined with the getScriptions query? Perhaps using a subquery?
   const getLikes = (req, res, next) => {
     // console.log('Getting likes...', req.query);
   
     let { id } = req.query;
-    // user_id = user_id - 0;  // type coerce to number
-    // console.log('Getting likes for user ', user_id);
+    // console.log('Getting likes for user ', userID;
   
     const query = 
     `SELECT *
@@ -128,7 +123,7 @@ const feedController = (req, res, next) => {
       }
       // console.log('likes: ', response.rows);
       const count = response.rowCount;
-      const likedByUser = response.rows.reduce((accm, curr) => curr.user_id === USER_ID, false);
+      const likedByUser = response.rows.reduce((accm, curr) => curr.user_id === userID, false);
   
       res.locals = {
         count,
@@ -138,7 +133,6 @@ const feedController = (req, res, next) => {
     });
   };
   
-  
   const addLike = (req, res, next) => {
     // console.log('Adding new like to database...', req.body);
     let { scription_id } = req.body;
@@ -146,7 +140,7 @@ const feedController = (req, res, next) => {
   
     const query = {
       text: 'INSERT INTO likes (user_id, scription_id) VALUES ($1, $2)',
-      values: [USER_ID, scription_id]
+      values: [userID, scription_id]
     }
   
     db.query(query, (error, response) => {
@@ -165,6 +159,7 @@ const feedController = (req, res, next) => {
     getSong,
     addScription,
     addComment,
+    getLikes,
     addLike
   };
 }
