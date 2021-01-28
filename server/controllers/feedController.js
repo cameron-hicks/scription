@@ -1,11 +1,12 @@
 const { Pool } = require('pg');
-const { DB_URI, COOKIE_SIG } = require('../secrets.js');
-const cookieParser = require('cookie-parser');
-
+// connect to database
+const PG_URI = require('../secrets.js').databaseURI;
+// create a new pool here using the connection string above
 const db = new Pool({
-  connectionString: DB_URI
+  connectionString: PG_URI
 });
 
+<<<<<<< HEAD
 // const feedController = {};
 // const USER_ID = 2;      
   // TODO: limit # of results
@@ -164,6 +165,12 @@ const feedController = {};
 }
 
 /*
+=======
+const feedController = {};
+const USER_ID = 2;      // TODO: replace with cookies
+  // TODO: limit # of results
+
+>>>>>>> parent of be3296e... refactored for scope
 feedController.getScriptions = (req, res, next) => {
   console.log('Getting scriptions...');
 
@@ -309,6 +316,5 @@ feedController.addLike = (req, res, next) => {
     return next();
   });
 };
-*/
 
 module.exports = feedController;
