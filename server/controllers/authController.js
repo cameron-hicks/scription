@@ -1,18 +1,28 @@
+import bcrypt from 'bcrypt';
 const { Pool } = require('pg');
-const { DB_URI, COOKIE_SIG } = require('../secrets.js');
+const { DB_URI } = require('../secrets.js');
 
 const db = new Pool({
   connectionString: DB_URI
 });
 
-const authController = (req, res, next) => {
-  const addUser = () => {
-    const { username, password, birthdate } = req.body;
-    const crypt = 'Hi I\'ve been bcrypted';   // TODO
-    // query. TODO: check syntax for returning a value from insert operation
-    // also TODO: how to check for uniqueness within the same query
-    const query = 'INSERT INTO users (username, password, birthdate) VALUES ($1, $2, $3) RETURNING _id';
-  
+const authController = {};
+
+authController.addUser = (req, res, next) => {
+  const { username, password, birthdate } = req.body;
+
+  bcrypt.hash(username, 10, (err, hash) => {
+    if(err) {
+      console.error('ERROR encrypting password: ', err);
+      return next(err);
+    }
+    
+    // TODO: How to send back meaningful error message if this username violates the column's uniqueness constraint?
+    const query = {
+      text: 'INSERT INTO users (username, password, birthdate) VALUES ($1, $2, $3) RETURNING _id',
+      values: [username, hash, birthdate]
+    };
+
     db.query(query, (err, result) => {
       if (err) {
         console.warn('ERROR at addUser: ', err);
@@ -21,51 +31,56 @@ const authController = (req, res, next) => {
       res.locals.userID = result._id;
       return next();
     })
+  })  
+};
+
+authController.attemptLogin = (req, res, next) => {
+  const { username, password } = req.body;
+
+  const query = {
+    text: 'SELECT _id FROM users WHERE username = $1 AND password = $2',
+    values: [username, crypt]
   };
 
-  const attemptLogin = () => {
-    const { username, password } = req.body;
-    const crypt = 'Hi I\'ve been bcrypted';   // TODO
+  db.query(query, (err, result) => {
+    if (err) {
+      console.warn('ERROR at attemptLogin: ', err);
+      return next(err);
+    }
+    
+    if (result === null) {
+      // if no user found with that name and pass, send 401
+      return res.status(401).json({ status: 'Unsuccessful login' });
+    }
 
-    const query = {
-      text: 'SELECT _id FROM users WHERE username = $1 AND password = $2',
-      values: [username, crypt]
-    };
-    db.query(query, (err, result) => {
+    bcrypt.compare(password, result.password, (err, authenticated) => {
       if (err) {
-        console.warn('ERROR at attemptLogin: ', err);
+        console.error('ERROR at bcrypt.compare:', err);
         return next(err);
       }
-      
-      if (result === null) {
-        // if no user found with that name and pass, send 401
-        return res.status(401).json({ status: 'Unsuccessful login' });
+
+      if (!authenticated) {
+        return res.status(401).json({ message: 'Incorrect password.' });
       }
 
       res.locals.userID = result._id;
       return next();
-    })
-  };
-
-  const setCookie = () => {
-    const { userID } = res.locals;
-  
-    res.cookie('userID', userID, { 
-      httpOnly: true, 
-      maxAge: 234859550,   // 3 days in ms
-      sameSite: true,
-      secure: true,
-      signed: true
     });
-  
-    return next();
-  };
+  })
+};
 
-  return {
-    addUser,
-    attemptLogin,
-    setCookie
-  }
+authController.setCookie = (req, res, next) => {
+  const { userID } = res.locals;
+
+  res.cookie('userID', userID, { 
+    httpOnly: true, 
+    maxAge: 234859550,   // 3 days in ms
+    sameSite: true,
+    secure: true,
+    signed: true
+  });
+
+  return next();
 };
 
 module.exports = authController;

@@ -3,9 +3,10 @@ AUTH TO-DOS
 [X] choose font for h2
 [] use one input with pattern attribute for birthday
 [X] middleware
-[] bcrypt
+[X] bcrypt
 [X] cookies
 [] test routes
+[] add UNIQUE constraint to username
 [] input validation on the frontend, plus toasts
 [] research two-factor authentication
 [] research how to implement forgotten/reset password
