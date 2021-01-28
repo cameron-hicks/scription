@@ -1,6 +1,6 @@
 AUTH TO-DOS
 [] try out position: sticky to get the header and footer in the right place
-[] choose font for h2
+[X] choose font for h2
 [] use one input with pattern attribute for birthday
 [X] middleware
 [] bcrypt
