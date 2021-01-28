@@ -1,6 +1,5 @@
 const { Pool } = require('pg');
 const { DB_URI, COOKIE_SIG } = require('../secrets.js');
-const cookieParser = require('cookie-parser');
 
 const db = new Pool({
   connectionString: DB_URI
