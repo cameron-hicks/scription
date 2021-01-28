@@ -1,6 +1,5 @@
 const express = require('express');
-const feedController = require('../controllers/feedController');
-const feed = feedController();
+const feed = require('../controllers/feedController');
 const router = express.Router();
 
 router.get('/',

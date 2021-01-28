@@ -1,7 +1,7 @@
 const cookieParser = require('cookie-parser');
 // connect to database
 const { Pool } = require('pg');
-const { PG_URI } = require('../secrets.js');
+const { PG_URI, COOKIE_SIG } = require('../secrets.js');
 const db = new Pool({
   connectionString: PG_URI
 });
@@ -109,7 +109,7 @@ feedController.getLikes = (req, res, next) => {
 
   let { id } = req.query;
   // user_id = user_id - 0;  // type coerce to number
-  console.log('Getting likes for user ', userID);
+  // console.log('Getting likes for user ', userID);
 
   const query = 
   `SELECT *
