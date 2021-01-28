@@ -18,7 +18,7 @@ const MainWrapper = () => {
   }
 
   return (
-    <div className="main-wrapper">
+    <div className="MainWrapper">
       <header className="banner">
         <h1>Scription</h1>
         {/* control whether an auth component renders, and which type of auth component */}
