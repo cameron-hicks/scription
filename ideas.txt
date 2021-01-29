@@ -5,8 +5,11 @@ AUTH TO-DOS
 [X] middleware
 [X] bcrypt
 [X] cookies
-[] test routes
-[] add UNIQUE constraint to username
+[X] test routes
+[] add UNIQUE constraint to username (doesn't work)
+[] add uniqueness check to signup route
+[] add sessions to store username
+[] display username in place of login/signup dropdown once  user is signed in
 [] input validation on the frontend, plus toasts
 [] research two-factor authentication
 [] research how to implement forgotten/reset password
