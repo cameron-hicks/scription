@@ -1,10 +1,7 @@
 const cookieParser = require('cookie-parser');
 // connect to database
-const { Pool } = require('pg');
-const { PG_URI, COOKIE_SIG } = require('../secrets.js');
-const db = new Pool({
-  connectionString: PG_URI
-});
+const db = require('../model');
+const { COOKIE_SIG } = require('../secrets.js');
 
 const feedController = {};
   // TODO: limit # of results
