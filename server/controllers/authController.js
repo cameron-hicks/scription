@@ -71,7 +71,7 @@ authController.setCookie = (req, res, next) => {
 
   res.cookie('userID', userID, { 
     httpOnly: true, 
-    maxAge: 234859550,   // 3 days in ms
+    maxAge: 234859550,   // 3 days
     sameSite: true,
     secure: true,
     signed: true
@@ -80,4 +80,55 @@ authController.setCookie = (req, res, next) => {
   return next();
 };
 
+authController.setCookie = (req, res, next) => {
+  const { userID } = res.locals;
+  console.log('Setting cookie for user ', userID);
+
+  res.cookie('userID', userID, { 
+    httpOnly: true, 
+    maxAge: 234859550,   // 3 days
+    sameSite: true,
+    secure: true,
+    signed: true
+  });
+
+  return next();
+};
+
+authController.getCookie = (req, res, next) => {
+  // TODO
+  if (!req.signedCookies) {
+    return res.status(401).json({status: 'unauthorized'});
+  }
+
+  // TODO
+  const userID = cookieParser.signedCookie(req.signedCookies.userID, COOKIE_SIG);
+  return next();
+}
+
+authController.getUsername = (req, res, next) => {
+  const userID = cookieParser.signedCookie(req.signedCookies.userID, COOKIE_SIG);
+
+  const query = {
+    text: 'SELECT username FROM users WHERE _id = $1',
+    values: [userID]
+  };
+
+  db.query(query, (err, result) => {
+    if (err) {
+      console.warn('ERROR at getUsername: ', err);
+      return next(err);
+    }
+    
+    if (!result.rows.length) {
+      // if no user found with that name and pass, send 401
+      return res.status(401).json({ status: 'No such user' });
+    }
+
+    res.locals.username = result.rows[0];
+    console.log('username retrieved:', res.locals.username);
+    return next();
+  });
+}
+ 
 module.exports = authController;
