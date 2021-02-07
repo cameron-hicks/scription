@@ -67,6 +67,7 @@ authController.attemptLogin = (req, res, next) => {
 
 authController.setCookie = (req, res, next) => {
   const { userID } = res.locals;
+  console.log('Setting cookie for user ', userID);
 
   res.cookie('userID', userID, { 
     httpOnly: true, 

@@ -85,10 +85,9 @@ const Scription = ({ scrObj, audioContext }) => {
     fetch('/api/likes', {
       method: 'PUT',
       headers: {
-        'Content-Type': 'Application/JSON'
+        'Content-Type': 'application/JSON'
       },
       body: JSON.stringify({
-        user_id: USER_ID,           // hard-coded for now
         scription_id: scrObj._id
       })
     })

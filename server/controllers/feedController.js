@@ -132,7 +132,9 @@ feedController.getLikes = (req, res, next) => {
 
 feedController.addLike = (req, res, next) => {
   const userID = cookieParser.signedCookie(req.signedCookies.userID, COOKIE_SIG);
-  // console.log('Adding new like to database...', req.body);
+  // const { userID } = req.cookies;
+  console.log('Adding new like to database...', req.body);
+  console.log('cookies:', req.signedCookies);
   let { scription_id } = req.body;
   // scription_id = scription_id - 0;  // type coerce to number
 
