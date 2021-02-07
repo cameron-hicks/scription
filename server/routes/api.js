@@ -12,12 +12,12 @@ router.get('/',
 router.put('/',
   feed.getSong,
   feed.addScription,
-  (req, res) => res.status(200).json({ status: 'okay' })
+  (req, res) => res.status(200).json({ message: 'Scription posted.' })
 );
 
 router.put('/comments',
   feed.addComment,
-  (req, res) => res.status(200).json({ status: 'okay' })
+  (req, res) => res.status(200).json({ message: 'Comment posted.' })
 )
 
 router.get('/comments',
@@ -36,7 +36,7 @@ router.get('/likes',
 
 router.put('/likes',
   feed.addLike,
-  (req, res) => res.status(200).json({ status: 'okay' })
+  (req, res) => res.status(200).json({ message: 'Liked!' })
 )
 
 module.exports = router;

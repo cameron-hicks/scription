@@ -9,15 +9,16 @@ router.get('/cookie',
 );
 
 router.post('/signup', 
+  auth.checkUniqueness,
   auth.addUser,
   auth.setCookie,
-  (req, res) => res.status(200).json({ status: 'okay' })
+  (req, res) => res.status(200).json({ message: 'Account created.' })
 );
 
 router.post('/login', 
   auth.attemptLogin,
   auth.setCookie,
-  (req, res) => res.status(200).json({ status: 'okay' })
+  (req, res) => res.status(200).json({ message: 'User logged in.' })
 );
 
 
