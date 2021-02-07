@@ -1,7 +1,7 @@
 const cookieParser = require('cookie-parser');
+const { COOKIE_SIG } = require('../secrets.js');
 // connect to database
 const db = require('../model');
-const { COOKIE_SIG } = require('../secrets.js');
 
 const feedController = {};
   // TODO: limit # of results

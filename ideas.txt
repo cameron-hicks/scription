@@ -7,15 +7,18 @@ AUTH TO-DOS
 [X] cookies
 [X] test routes
 [] add UNIQUE constraint to username (doesn't work)
-[] add uniqueness check to signup route
-[] add sessions to store username
-[] display username in place of login/signup dropdown once  user is signed in
+[X] add uniqueness check to signup route
+[X] store username in frontend
+[X] display username in place of login/signup dropdown once  user is signed in
 [] input validation on the frontend, plus toasts
 [] research two-factor authentication
 [] research how to implement forgotten/reset password
 
 SECURITY TO-DOS
 [] read this and make to-dos: https://expressjs.com/en/advanced/best-practice-security.html
+
+NEXT LITTLE FEATURE
+[] hover styles for unfinished features
 
 NEXT BIG FEATURE
 Private sandbox to use and learn ABC in. Interactive tutorial. This site needs to be fun to use even if no one else is on it!

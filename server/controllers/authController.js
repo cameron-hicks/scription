@@ -1,7 +1,25 @@
 const bcrypt = require('bcrypt');
 const db = require('../model');
+const cookieParser = require('cookie-parser');
+const { COOKIE_SIG } = require('../secrets.js');
 
 const authController = {};
+
+authController.checkUniqueness = (req, res, next) => {
+  const {username} = req.body;
+
+  const query = {
+    text: 'SELECT username FROM users WHERE username=$1',
+    values: [username],
+  };
+
+  db.query(query, (err, result) => {
+    if (result.rows.length) {
+      return res.status(401).json({message: 'An account with that username already exists.'});
+    }
+    return next();
+  });
+}
 
 authController.addUser = (req, res, next) => {
 ;  const { username, password, birthdate } = req.body;
@@ -12,7 +30,6 @@ authController.addUser = (req, res, next) => {
       return next(err);
     }
 
-    // TODO: How to send back meaningful error message if this username violates the column's uniqueness constraint?
     const query = {
       text: 'INSERT INTO users (username, password, birthdate) VALUES ($1, $2, $3) RETURNING _id',
       values: [username, hash, birthdate]
@@ -23,7 +40,7 @@ authController.addUser = (req, res, next) => {
         console.warn('ERROR at addUser: ', err);
         return next(err);
       }
-      console.log('result of query:', result.rows[0]);
+      console.log('result of AddUser query:', result.rows[0]);
       res.locals.userID = result.rows[0]._id;
       return next();
     })
@@ -96,12 +113,10 @@ authController.setCookie = (req, res, next) => {
 };
 
 authController.getCookie = (req, res, next) => {
-  // TODO
-  if (!req.signedCookies) {
-    return res.status(401).json({status: 'unauthorized'});
+  if (!req.signedCookies.userID) {
+    return res.status(401).json({message: 'Please log in or sign up.'});
   }
 
-  // TODO
   const userID = cookieParser.signedCookie(req.signedCookies.userID, COOKIE_SIG);
   return next();
 }
@@ -125,7 +140,7 @@ authController.getUsername = (req, res, next) => {
       return res.status(401).json({ status: 'No such user' });
     }
 
-    res.locals.username = result.rows[0];
+    res.locals.username = result.rows[0].username;
     console.log('username retrieved:', res.locals.username);
     return next();
   });
