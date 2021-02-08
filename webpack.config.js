@@ -40,6 +40,7 @@ module.exports = {
     headers: { 'Access-Control-Allow-Origin': '*' },    // allow cors
     proxy: {
       '/api': 'http://localhost:3000',
+      '/auth': 'http://localhost:3000',
     },
     hot: true,
     contentBase: path.join(__dirname, 'public')  // where to load static files from
