@@ -12,6 +12,7 @@ AUTH TO-DOS
 [X] store username in frontend
 [X] display username in place of login/signup dropdown once  user is signed in
 [] logout (clear cookie 'userID')
+[] userID cookie should reassign if a different user logs in/signs up (eg by logging out first)
 [] input validation on the frontend, plus toasts
 [] research two-factor authentication
 [] research how to implement forgotten/reset password
