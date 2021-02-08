@@ -11,6 +11,7 @@ AUTH TO-DOS
 [X] add uniqueness check to signup route
 [X] store username in frontend
 [X] display username in place of login/signup dropdown once  user is signed in
+[] logout (clear cookie 'userID')
 [] input validation on the frontend, plus toasts
 [] research two-factor authentication
 [] research how to implement forgotten/reset password

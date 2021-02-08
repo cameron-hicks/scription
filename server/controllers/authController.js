@@ -22,7 +22,8 @@ authController.checkUniqueness = (req, res, next) => {
 }
 
 authController.addUser = (req, res, next) => {
-;  const { username, password, birthdate } = req.body;
+  const { username, password, birthdate } = req.body;
+  console.log('Signing up new user', username);
 
   bcrypt.hash(password, 10, (err, hash) => {
     if(err) {
@@ -31,7 +32,7 @@ authController.addUser = (req, res, next) => {
     }
 
     const query = {
-      text: 'INSERT INTO users (username, password, birthdate) VALUES ($1, $2, $3) RETURNING _id',
+      text: 'INSERT INTO users (username, password, birthdate) VALUES ($1, $2, $3) RETURNING _id, username',
       values: [username, hash, birthdate]
     };
 
@@ -41,7 +42,8 @@ authController.addUser = (req, res, next) => {
         return next(err);
       }
       console.log('result of AddUser query:', result.rows[0]);
-      res.locals.userID = result.rows[0]._id;
+      // res.locals.userID = result.rows[0]._id;
+      res.locals = {userID: result.rows[0]._id, username};
       return next();
     })
   })  
@@ -63,8 +65,9 @@ authController.attemptLogin = (req, res, next) => {
     }
     
     if (!result.rows.length) {
+      console.log('wrong username');
       // if no user found with that name and pass, send 401
-      return res.status(401).json({ message: 'No such user' });
+      return res.status(401).json({ message: 'Incorrect username/password' });
     }
 
     bcrypt.compare(password, result.rows[0].password, (err, authenticated) => {
@@ -74,7 +77,8 @@ authController.attemptLogin = (req, res, next) => {
       }
 
       if (!authenticated) {
-        return res.status(401).json({ message: 'Incorrect password.' });
+        console.log('wrong password');
+        return res.status(401).json({ message: 'Incorrect username/password' });
       }
 
       console.log('Successful login!');

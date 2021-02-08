@@ -21,10 +21,10 @@ app.use(cookieParser());
 // statically serve everything in the build folder 
 app.use('/build/', express.static(path.join(__dirname, '../build')));
 
-app.use('*', (req, res, next) => {
-  console.log('current cookies', req.cookies);
-  next();
-})
+// app.use('*', (req, res, next) => {
+//   console.log('current cookies', req.cookies);
+//   next();
+// })
 // route all API requests through api.js
 app.use('/api', apiRouter);
 // route all auth requests through auth.js

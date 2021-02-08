@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Login = ({setUsername, closeAuthForm}) => {
+const Login = ({setDisplayedUsername, closeAuthForm}) => {
   const [typedUsername, setTypedUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -17,7 +17,7 @@ const Login = ({setUsername, closeAuthForm}) => {
     })
       .then(res => res.json())  
       .then(data => {
-        setUsername(data.username || '');
+        setDisplayedUsername(data.username || '');
         closeAuthForm();
       })
       .catch(error => console.log('sendLogin ERROR: ', error));
