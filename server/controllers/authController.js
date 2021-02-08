@@ -49,6 +49,7 @@ authController.addUser = (req, res, next) => {
 
 authController.attemptLogin = (req, res, next) => {
   const { username, password } = req.body;
+  console.log('signing in', username);
 
   const query = {
     text: 'SELECT _id, password FROM users WHERE username = $1',
@@ -63,7 +64,7 @@ authController.attemptLogin = (req, res, next) => {
     
     if (!result.rows.length) {
       // if no user found with that name and pass, send 401
-      return res.status(401).json({ status: 'No such user' });
+      return res.status(401).json({ message: 'No such user' });
     }
 
     bcrypt.compare(password, result.rows[0].password, (err, authenticated) => {
@@ -76,7 +77,8 @@ authController.attemptLogin = (req, res, next) => {
         return res.status(401).json({ message: 'Incorrect password.' });
       }
 
-      res.locals.userID = result.rows[0]._id;
+      console.log('Successful login!');
+      res.locals = {userID: result.rows[0]._id, username};
       return next();
     });
   })
@@ -89,35 +91,24 @@ authController.setCookie = (req, res, next) => {
   res.cookie('userID', userID, { 
     httpOnly: true, 
     maxAge: 234859550,   // 3 days
-    sameSite: true,
+    sameSite: false,
     secure: true,
-    signed: true
+    // signed: true
   });
-
-  return next();
-};
-
-authController.setCookie = (req, res, next) => {
-  const { userID } = res.locals;
-  console.log('Setting cookie for user ', userID);
-
-  res.cookie('userID', userID, { 
-    httpOnly: true, 
-    maxAge: 234859550,   // 3 days
-    sameSite: true,
-    secure: true,
-    signed: true
-  });
-
+   
   return next();
 };
 
 authController.getCookie = (req, res, next) => {
-  if (!req.signedCookies.userID) {
+  console.log('getting cookie', req.cookies);
+  if (!req.cookies.userID) {
+    console.log('no cookie');
     return res.status(401).json({message: 'Please log in or sign up.'});
   }
 
-  const userID = cookieParser.signedCookie(req.signedCookies.userID, COOKIE_SIG);
+  // const userID = cookieParser.signedCookie(req.signedCookies.userID, COOKIE_SIG);
+  const userID = req.cookies.userID;
+  console.log('got cookie for user', userID);
   return next();
 }
 

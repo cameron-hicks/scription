@@ -132,7 +132,6 @@ feedController.getLikes = (req, res, next) => {
 
 feedController.addLike = (req, res, next) => {
   const userID = cookieParser.signedCookie(req.signedCookies.userID, COOKIE_SIG);
-  // const { userID } = req.cookies;
   console.log('Adding new like to database...', req.body);
   console.log('cookies:', req.signedCookies);
   let { scription_id } = req.body;

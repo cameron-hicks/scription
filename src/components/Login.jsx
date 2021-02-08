@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-const Login = () => {
-  const [username, setUsername] = useState('');
+const Login = ({setUsername, closeAuthForm}) => {
+  const [typedUsername, setTypedUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const sendLogin = () => {
@@ -11,29 +11,32 @@ const Login = () => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        username,
+        username: typedUsername,
         password
       })
-    }).then(data => {
-      setUsername('');
     })
-    .catch(error => console.log('Scription addLike ERROR: ', error));
+      .then(res => res.json())  
+      .then(data => {
+        setUsername(data.username || '');
+        closeAuthForm();
+      })
+      .catch(error => console.log('sendLogin ERROR: ', error));
   }
 
   return (
     <div className="auth-container">
       <h2>Log In</h2>
-      <form>
+      <div>
         <input type="text" 
                 placeholder="username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}></input>
+                value={typedUsername}
+                onChange={(e) => setTypedUsername(e.target.value)}></input>
         <input type="password" 
                 placeholder="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}></input>
         <button onClick={sendLogin}>Log in</button>
-      </form>
+      </div>
     </div>
   );
 }

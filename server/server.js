@@ -17,9 +17,14 @@ app.use(cors(corsOptions));
 app.use(express.json());
 // use signed cookies
 // app.use(cookieParser(COOKIE_SIG));
-app.use(cookieParser(COOKIE_SIG));
+app.use(cookieParser());
 // statically serve everything in the build folder 
 app.use('/build/', express.static(path.join(__dirname, '../build')));
+
+app.use('*', (req, res, next) => {
+  console.log('current cookies', req.cookies);
+  next();
+})
 // route all API requests through api.js
 app.use('/api', apiRouter);
 // route all auth requests through auth.js
@@ -42,7 +47,7 @@ app.use((err, req, res, next) => {
       err: 'A server error occured',
     },
   };
-  error.message = err.message; // expect to overwrite message param of defaultErr
+  error.message = err.message;
   if (err.status) error.status = err.status;
 
   console.log('SERVER ERROR: ', error.message);
