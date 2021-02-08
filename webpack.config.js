@@ -1,9 +1,6 @@
 const path = require('path');
 // const MiniCssExtractPlugin = require('mini-css-extract-plugin');  // using?
 
-// note: simplifieid regexes below during webpack approach lecture. may need to revert if things break.
-
-console.log('environment printing from webpack.config:', process.env.NODE_ENV);
 module.exports = {
   entry: './src/index.js',
   output:  {
@@ -37,7 +34,7 @@ module.exports = {
   },
   devServer: { 
     publicPath: '/build/',   // tells webpack where to put bundle.js    
-    headers: { 'Access-Control-Allow-Origin': '*' },    // allow cors
+    headers: { 'Access-Control-Allow-Origin': '*' },    // allow cors from any host
     proxy: {
       '/api': 'http://localhost:3000',
       '/auth': 'http://localhost:3000',
