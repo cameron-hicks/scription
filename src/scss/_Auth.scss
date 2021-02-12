@@ -5,17 +5,12 @@
   padding: 15vh 0 0 0;
   text-align: center;
   background-color: $navy;
-  // display: flex;
-  // flex-direction: column;
-  // justify-content: space-around;
-  // align-items: center;
 
   h2 {
     color: $coolgray;
-    // font-family: $serif;
   }
 
-  form {
+  .form {
     width: fit-content;
     margin: 0 auto;
     display: flex;
