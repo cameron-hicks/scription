@@ -39,6 +39,7 @@ const Signup = ({setDisplayedUsername, closeAuthForm}) => {
 
   return (
     <div className="auth-container">
+      <div className="form">
       <h2>Create an Account</h2>
       <div>
         <input type="text" 
@@ -61,6 +62,7 @@ const Signup = ({setDisplayedUsername, closeAuthForm}) => {
           </div>
         </label>
         <button onClick={sendSignup}>Sign up</button>
+      </div>
       </div>
     </div>
   );

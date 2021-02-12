@@ -25,6 +25,7 @@ const Login = ({setDisplayedUsername, closeAuthForm}) => {
 
   return (
     <div className="auth-container">
+      <div className="form">
       <h2>Log In</h2>
       <div>
         <input type="text" 
@@ -36,6 +37,7 @@ const Login = ({setDisplayedUsername, closeAuthForm}) => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}></input>
         <button onClick={sendLogin}>Log in</button>
+      </div>
       </div>
     </div>
   );
