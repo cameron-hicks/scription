@@ -50,10 +50,10 @@ Built using React, Express, and PostgreSQL. Sheet music renderings and audio pla
 - add comments and likes to a scription
 - display comments and likes on each scription
 - play synthesized audio for each scription
+- user authentication: server routes, cookies, and sessions for login and signup 
 
 ### In Progress
 
-- finish user authentication: server routes, cookies, and sessions for login and signup 
 - bug fix: duplicate scriptions being created
 - UX/UI for audio playback widgets
 - add and display likes on comments
