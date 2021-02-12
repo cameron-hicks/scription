@@ -34,11 +34,9 @@ const CommentInput = ({scription_id, setSubmitted}) => {
           console.log('newComment: ', newComment);
         }}>
       </textarea>
-      {/* <div className="right-align-btns scription-btns"> */}
-        <button className="scription-btns" onClick={submit}>
-          Send <i className="fas fa-share-square"></i>
-        </button>
-      {/* </div> */}
+      <button className="scription-btns" onClick={submit}>
+        Send <i className="fas fa-share-square"></i>
+      </button>
     </div>
   );
 };

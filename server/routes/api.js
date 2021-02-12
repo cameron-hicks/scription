@@ -1,48 +1,42 @@
 const express = require('express');
-const feedController = require('../controllers/feedController');
+const feed = require('../controllers/feedController');
 const router = express.Router();
 
 router.get('/',
-  feedController.getScriptions,
+  feed.getScriptions,
   (req, res) => {
     res.status(200).json(res.locals);
   }
 );
 
 router.put('/',
-  feedController.getSong,
-  feedController.addScription,
-  (req, res) => {
-    res.status(200).json({ status: 'okay' });
-  }
+  feed.getSong,
+  feed.addScription,
+  (req, res) => res.status(200).json({ message: 'Scription posted.' })
 );
 
 router.put('/comments',
-  feedController.addComment,
-  (req, res) => {
-    res.status(200).json({status: "okay"});
-  }
+  feed.addComment,
+  (req, res) => res.status(200).json({ message: 'Comment posted.' })
 )
 
 router.get('/comments',
-  feedController.getComments,
+  feed.getComments,
   (req, res) => {
     res.status(200).json(res.locals);
   }
 );
 
 router.get('/likes',
-  feedController.getLikes,
+  feed.getLikes,
   (req, res) => {
     res.status(200).json(res.locals);
   }
 );
 
 router.put('/likes',
-  feedController.addLike,
-  (req, res) => {
-    res.status(200).json({status: "okay"});
-  }
+  feed.addLike,
+  (req, res) => res.status(200).json({ message: 'Liked!' })
 )
 
 module.exports = router;

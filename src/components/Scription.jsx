@@ -14,16 +14,16 @@ const Scription = ({ scrObj, audioContext }) => {
   const [liked, setLiked] = useState(false);    // whether logged-in user has liked it
   const [likes, setLikes] = useState(0);    // total likes it has
 
-  
+  // TODO: refactor. useCallback?
   useEffect(() => {
     const fetchComments = () => {
       const queryString = `/api/comments?id=${scrObj._id}`;
       fetch(queryString)
       .then(res => res.json())
-      .then((fetched) => {
-        if(!fetched.length) fetched = [];
+      .then((data) => {
+        if(!data.length) data = [];
   
-        setComments(fetched);
+        setComments(data);
         // setFetched(true);
         return;
       })
@@ -85,10 +85,9 @@ const Scription = ({ scrObj, audioContext }) => {
     fetch('/api/likes', {
       method: 'PUT',
       headers: {
-        'Content-Type': 'Application/JSON'
+        'Content-Type': 'application/JSON'
       },
       body: JSON.stringify({
-        user_id: USER_ID,           // hard-coded for now
         scription_id: scrObj._id
       })
     })

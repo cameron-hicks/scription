@@ -1,13 +1,9 @@
-const { Pool } = require('pg');
+const cookieParser = require('cookie-parser');
+const { COOKIE_SIG } = require('../secrets.js');
 // connect to database
-const PG_URI = require('../secrets.js').databaseURI;
-// create a new pool here using the connection string above
-const db = new Pool({
-  connectionString: PG_URI
-});
+const db = require('../model');
 
 const feedController = {};
-const USER_ID = 2;      // TODO: replace with cookies
   // TODO: limit # of results
 
 feedController.getScriptions = (req, res, next) => {
@@ -55,7 +51,6 @@ feedController.getComments = (req, res, next) => {
   });
 };
 
-
 feedController.getSong = (req, res, next) => {
   // based on title of incoming scription, get or upsert song record
   // add song's _id to res.locals as song_id
@@ -63,15 +58,15 @@ feedController.getSong = (req, res, next) => {
   return next();
 }
 
-
 feedController.addScription = (req, res, next) => {
   console.log('Adding new scription to database...', req.body);
+  const userID = cookieParser.signedCookie(req.signedCookies.userID, COOKIE_SIG);
   const { abc } = req.body;
   const { song_id } = res.locals;
 
   const query = {
     text: 'INSERT INTO scriptions (user_id, song_id, abc) VALUES ($1, $2, $3)',
-    values: [USER_ID, song_id, abc]
+    values: [userID, song_id, abc]
   }
 
   db.query(query, (error, response) => {
@@ -84,14 +79,14 @@ feedController.addScription = (req, res, next) => {
   });
 };
 
-
 feedController.addComment = (req, res, next) => {
   // console.log('Adding new comment to database...', req.body);
+  const userID = cookieParser.signedCookie(req.signedCookies.userID, COOKIE_SIG);
   const { scription_id, text } = req.body;
 
   const query = {
     text: 'INSERT INTO comments (user_id, scription_id, text) VALUES ($1, $2, $3)',
-    values: [USER_ID, scription_id, text]
+    values: [userID, scription_id, text]
   }
 
   db.query(query, (error, response) => {
@@ -104,14 +99,14 @@ feedController.addComment = (req, res, next) => {
   });
 };
 
-
 // TODO: Can this be combined with the getScriptions query? Perhaps using a subquery?
 feedController.getLikes = (req, res, next) => {
+  const userID = cookieParser.signedCookie(req.signedCookies.userID, COOKIE_SIG);
   // console.log('Getting likes...', req.query);
 
   let { id } = req.query;
   // user_id = user_id - 0;  // type coerce to number
-  // console.log('Getting likes for user ', user_id);
+  // console.log('Getting likes for user ', userID);
 
   const query = 
   `SELECT *
@@ -125,7 +120,7 @@ feedController.getLikes = (req, res, next) => {
     }
     // console.log('likes: ', response.rows);
     const count = response.rowCount;
-    const likedByUser = response.rows.reduce((accm, curr) => curr.user_id === USER_ID, false);
+    const likedByUser = response.rows.reduce((accm, curr) => curr.user_id === userID, false);
 
     res.locals = {
       count,
@@ -135,15 +130,16 @@ feedController.getLikes = (req, res, next) => {
   });
 };
 
-
 feedController.addLike = (req, res, next) => {
-  // console.log('Adding new like to database...', req.body);
+  const userID = cookieParser.signedCookie(req.signedCookies.userID, COOKIE_SIG);
+  console.log('Adding new like to database...', req.body);
+  console.log('cookies:', req.signedCookies);
   let { scription_id } = req.body;
   // scription_id = scription_id - 0;  // type coerce to number
 
   const query = {
     text: 'INSERT INTO likes (user_id, scription_id) VALUES ($1, $2)',
-    values: [USER_ID, scription_id]
+    values: [userID, scription_id]
   }
 
   db.query(query, (error, response) => {
