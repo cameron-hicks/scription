@@ -20,7 +20,10 @@ const Login = ({setDisplayedUsername, closeAuthForm}) => {
         setDisplayedUsername(data.username || '');
         closeAuthForm();
       })
-      .catch(error => console.log('sendLogin ERROR: ', error));
+      .catch(error => {
+        alert('Something went wrong...');
+        console.error('ERROR logging in:', error)
+      });
   }
 
   return (

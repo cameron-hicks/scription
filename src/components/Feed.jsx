@@ -17,7 +17,9 @@ const Feed = ({audioContext}) => {
         setFetched(true);
         return;
       })
-      .catch(err => console.log('Feed.useEffect ERROR: ', err));
+      .catch(err => {
+        console.error('ERROR getting feed: ', err);
+      });
   }, [fetched]);
 
   const mappedScriptions = scriptions.map(scrObj =>
