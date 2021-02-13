@@ -13,7 +13,7 @@ const MainContainer = () => {
           {showScrCreator ? <i className="fas fa-times"></i> : 'New Scription' }
         </button>
         {showScrCreator && <ScrCreator audioContext={audioContext}/> }
-        <Navbar />
+        {/* <Navbar /> */}
         <Feed audioContext={audioContext}/>
       </main>
   );
