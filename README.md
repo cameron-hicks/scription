@@ -16,9 +16,12 @@ Scription is not yet in deployment. To play around in version 1.0, please fork a
 
 Until Scription is deployed, you'll need to make your own Postgres instance to enable the database features. Supply the connection string for your database at line 3 of server/controllers/feedController.js. You can execute the file dump.sql to supply it with dummy data. To do so, run this command in your terminal: `psql YOUR-CONNECTION-STRING-HERE -f dump.sql`. 
 
-## v. 1.0
+## v. 1.1.0
 *Home page*
 ![scription home page screenshot](public/assets/v.1.0header.png "Scription home page")
+
+*Sign up*
+![scription sign-up page screenshot](public/assets/v.1.1signup.png "Scription sign-up page")
 
 *Scription Creator*
 ![scription creator screenshot](public/assets/v.1.0scriptioncreator.png "Scription Creator")
@@ -50,13 +53,12 @@ Built using React, Express, and PostgreSQL. Sheet music renderings and audio pla
 - add comments and likes to a scription
 - display comments and likes on each scription
 - play synthesized audio for each scription
-- user authentication: server routes, cookies, and sessions for login and signup 
+- user authentication: read and write users to db, API, bcrypt, and cookies 
 
 ### In Progress
 
 - bug fix: duplicate scriptions being created
 - UX/UI for audio playback widgets
-- likes on comments
 
 ### Upcoming Features
 
