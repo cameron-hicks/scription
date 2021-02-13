@@ -120,20 +120,21 @@ authController.getCookie = (req, res, next) => {
   }
 
   // const userID = cookieParser.signedCookie(req.signedCookies.userID, COOKIE_SIG);
-  const userID = req.cookies.userID;
-  if (userID) console.log('got cookie for user', userID);
+  // const userID = req.cookies.userID;
+  // if (userID) console.log('got cookie for user', userID);
+  // res.locals.userID = userID;
   return next();
 }
 
-/*
 authController.getUsername = (req, res, next) => {
   // const userID = cookieParser.signedCookie(req.signedCookies.userID, COOKIE_SIG);
   const userID = req.cookies.userID;
 
-  const query = {
-    text: 'SELECT username FROM users WHERE _id = $1',
-    values: [userID]
-  };
+  // const query = {
+  //   text: 'SELECT username FROM users WHERE _id = $1',
+  //   values: [userID]
+  // };
+  const query = 'SELECT username FROM users WHERE _id = ' + userID;
 
   db.query(query, (err, result) => {
     if (err) {
@@ -151,6 +152,5 @@ authController.getUsername = (req, res, next) => {
     return next();
   });
 }
-*/
 
 module.exports = authController;
