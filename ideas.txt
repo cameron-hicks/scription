@@ -7,16 +7,15 @@ AUTH TO-DOS
 [X] bcrypt
 [X] cookies
 [X] test routes
-[] add UNIQUE constraint to username (doesn't work)
 [X] add uniqueness check to signup route
 [X] store username in frontend
 [X] display username in place of login/signup dropdown once  user is signed in
 [X] bug: can't get cookies; empty object
---- solved by switching from signedCookies to regular cookies
+[] implement signed cookies
 [X] fetchLikes in Scription.jsx should use authenticated user's id
 [] logout (clear cookie 'userID')
-[] userID cookie should reassign if a different user logs in/signs up (eg by logging out first)
-[] input validation on the frontend, plus toasts
+[] input validation on the frontend
+[] toasts for error feedback
 [] research two-factor authentication
 [] research how to implement forgotten/reset password
 
