@@ -15,7 +15,7 @@ var corsOptions = {
 app.use(cors(corsOptions));
 // parse request bodies of content-type application/json
 app.use(express.json());
-// use signed cookies
+// TODO: use signed cookies
 // app.use(cookieParser(COOKIE_SIG));
 app.use(cookieParser());
 // statically serve everything in the build folder 

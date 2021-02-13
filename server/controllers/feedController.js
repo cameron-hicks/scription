@@ -1,10 +1,8 @@
-const cookieParser = require('cookie-parser');
-const { COOKIE_SIG } = require('../secrets.js');
 // connect to database
 const db = require('../model');
 
 const feedController = {};
-  // TODO: limit # of results
+  // TODO: pagination
 
 feedController.getScriptions = (req, res, next) => {
   console.log('Getting scriptions...');
@@ -60,7 +58,8 @@ feedController.getSong = (req, res, next) => {
 
 feedController.addScription = (req, res, next) => {
   console.log('Adding new scription to database...', req.body);
-  const userID = cookieParser.signedCookie(req.signedCookies.userID, COOKIE_SIG);
+  // const userID = cookieParser.signedCookie(req.signedCookies.userID, COOKIE_SIG);
+  const userID = req.cookies.userID;
   const { abc } = req.body;
   const { song_id } = res.locals;
 
@@ -81,7 +80,8 @@ feedController.addScription = (req, res, next) => {
 
 feedController.addComment = (req, res, next) => {
   // console.log('Adding new comment to database...', req.body);
-  const userID = cookieParser.signedCookie(req.signedCookies.userID, COOKIE_SIG);
+  // const userID = cookieParser.signedCookie(req.signedCookies.userID, COOKIE_SIG);
+  const userID = req.cookies.userID;
   const { scription_id, text } = req.body;
 
   const query = {
@@ -101,17 +101,15 @@ feedController.addComment = (req, res, next) => {
 
 // TODO: Can this be combined with the getScriptions query? Perhaps using a subquery?
 feedController.getLikes = (req, res, next) => {
-  const userID = cookieParser.signedCookie(req.signedCookies.userID, COOKIE_SIG);
-  // console.log('Getting likes...', req.query);
-
-  let { id } = req.query;
-  // user_id = user_id - 0;  // type coerce to number
+  // const userID = cookieParser.signedCookie(req.signedCookies.userID, COOKIE_SIG);
+  const userID = req.cookies.userID;
+  const {scription_id} = req.query;
   // console.log('Getting likes for user ', userID);
 
   const query = 
   `SELECT *
   FROM likes
-  WHERE scription_id=` + id;
+  WHERE scription_id=` + scription_id;
 
   db.query(query, (error, response) => {
     if(error) {
@@ -120,7 +118,9 @@ feedController.getLikes = (req, res, next) => {
     }
     // console.log('likes: ', response.rows);
     const count = response.rowCount;
-    const likedByUser = response.rows.reduce((accm, curr) => curr.user_id === userID, false);
+    const likedByUser = userID 
+      ? response.rows.reduce((accm, curr) => curr.user_id === userID, false)
+      : false;
 
     res.locals = {
       count,
@@ -131,10 +131,10 @@ feedController.getLikes = (req, res, next) => {
 };
 
 feedController.addLike = (req, res, next) => {
-  const userID = cookieParser.signedCookie(req.signedCookies.userID, COOKIE_SIG);
-  console.log('Adding new like to database...', req.body);
-  console.log('cookies:', req.signedCookies);
-  let { scription_id } = req.body;
+  const userID = req.cookies.userID;
+  // const userID = cookieParser.signedCookie(req.signedCookies.userID, COOKIE_SIG);
+  console.log('Adding new like to database...', req.body, 'userID:', userID);
+  const { scription_id } = req.body;
   // scription_id = scription_id - 0;  // type coerce to number
 
   const query = {
