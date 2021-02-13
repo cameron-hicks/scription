@@ -18,7 +18,7 @@ Until Scription is deployed, you'll need to make your own Postgres instance to e
 
 ## v. 1.1.0
 *Home page*
-![scription home page screenshot](public/assets/v.1.0header.png "Scription home page")
+![scription home page screenshot](public/assets/v.1.1main.png "Scription home page")
 
 *Sign up*
 ![scription sign-up page screenshot](public/assets/v.1.1signup.png "Scription sign-up page")
