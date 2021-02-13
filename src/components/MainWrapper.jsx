@@ -7,13 +7,11 @@ const MainWrapper = () => {
   const [username, setUsername] = useState('');
   const [authType, setAuthType] = useState('');
 
-  // console.log('sending GET to /auth');
   // if user has an active cookie, display their username
   // else display log in/sign up dropdown
   fetch('/auth')
     .then(res => res.json())
     .then(data => {
-      console.log('data from /auth/:', data);
       // if user has cookie, use it to set state
       if (!data.username) return;
       setUsername(data.username);
