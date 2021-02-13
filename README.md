@@ -4,10 +4,6 @@ A community for music makers to find and share original compositions and transcr
 
 Want to know how to play Britney Spears' "Toxic" on the bassoon? Chances are some helpful violinist has already transcribed it. Just save the sheet music (called a "scription") to your folder, hit "transpose," and voila -- now you've got the sheet music for "Toxic" in bass clef. While you're at it, give that helpful violinist a "like" to say thank you for their work.
 
-Want to find Irish tunes to play at your local session? Before you pack up for the pub, use the navbar to filter your feed by genre, era, or artist. Add the scriptions you're interested in to a list and hit "share" to email them to your fiddling friends, or save the list for easy retrieval on your mobile device later.
-
-Problem in the third measure? You can comment on the author's scription to let them know, or provide your own, edited version of their scription. But be nice -- Scription runs on social currency. Each piece of sheet music you save to your music folder costs a little reputation. Your reputation will grow when others like your scriptions or your comments, so pitch in!
-
 Upload your own scription using the Scription Creator, a sandbox where you can type in note names and see and hear an instantly updated preview of your composition. Save your in-progress scriptions to a "drafts" folder, and your favorite scriptions by others in a "favorites" folder. 
 
 ## To run:
