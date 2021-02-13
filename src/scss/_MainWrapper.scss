@@ -9,6 +9,11 @@
     width: 100vw;
     background-color: $navy;
     color: $peach;
+    
+    a:hover {
+      color: $coolwhite;
+      transition: color 500ms;
+    }
   }
 
   .banner {
@@ -46,7 +51,6 @@
       margin-right: 5px;
     }
 
-   
   }
 
   footer {
@@ -57,11 +61,6 @@
 
     p {
       vertical-align: middle;
-    }
-
-    a:hover {
-      color: $coolwhite;
-      transition: color 500ms;
     }
   }
 }

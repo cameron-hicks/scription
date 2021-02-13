@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const db = require('../model');
 const cookieParser = require('cookie-parser');
-const { COOKIE_SIG } = require('../secrets.js');
+// const { COOKIE_SIG } = require('../secrets.js');
 
 const authController = {};
 
@@ -89,14 +89,22 @@ authController.attemptLogin = (req, res, next) => {
 };
 
 authController.setCookie = (req, res, next) => {
-  const { userID } = res.locals;
+  const { userID, username } = res.locals;
   console.log('Setting cookie for user ', userID);
 
   res.cookie('userID', userID, { 
     httpOnly: true, 
     maxAge: 234859550,   // 3 days
-    sameSite: false,
-    secure: true,
+    // sameSite: false,
+    // secure: true,
+    // signed: true
+  });
+
+  res.cookie('username', username, { 
+    httpOnly: true, 
+    maxAge: 234859550,   // 3 days
+    // sameSite: false,
+    // secure: true,
     // signed: true
   });
    
@@ -104,25 +112,29 @@ authController.setCookie = (req, res, next) => {
 };
 
 authController.getCookie = (req, res, next) => {
-  console.log('getting cookie', req.cookies);
+  // console.log('request object:', req);
+  // console.log('getting cookie', req.cookies);
   if (!req.cookies.userID) {
     console.log('no cookie');
     return res.status(401).json({message: 'Please log in or sign up.'});
   }
 
   // const userID = cookieParser.signedCookie(req.signedCookies.userID, COOKIE_SIG);
-  const userID = req.cookies.userID;
-  console.log('got cookie for user', userID);
+  // const userID = req.cookies.userID;
+  // if (userID) console.log('got cookie for user', userID);
+  // res.locals.userID = userID;
   return next();
 }
 
 authController.getUsername = (req, res, next) => {
-  const userID = cookieParser.signedCookie(req.signedCookies.userID, COOKIE_SIG);
+  // const userID = cookieParser.signedCookie(req.signedCookies.userID, COOKIE_SIG);
+  const userID = req.cookies.userID;
 
-  const query = {
-    text: 'SELECT username FROM users WHERE _id = $1',
-    values: [userID]
-  };
+  // const query = {
+  //   text: 'SELECT username FROM users WHERE _id = $1',
+  //   values: [userID]
+  // };
+  const query = 'SELECT username FROM users WHERE _id = ' + userID;
 
   db.query(query, (err, result) => {
     if (err) {
@@ -136,9 +148,9 @@ authController.getUsername = (req, res, next) => {
     }
 
     res.locals.username = result.rows[0].username;
-    console.log('username retrieved:', res.locals.username);
+    // console.log('username retrieved:', res.locals.username);
     return next();
   });
 }
- 
+
 module.exports = authController;

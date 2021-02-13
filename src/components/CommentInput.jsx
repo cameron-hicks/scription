@@ -17,11 +17,13 @@ const CommentInput = ({scription_id, setSubmitted}) => {
       })
     })
     .then(data => {
-      // console.log('Successful comment submission: ', data);
       setComment('');
       setSubmitted(true);
     })
-    .catch(error => console.log('CommentInput ERROR: ', error));
+    .catch(error => {
+      alert('Something went wrong...');
+      console.error('ERROR submitting comment: ', error)
+    });
   }
 
   return (
@@ -29,9 +31,7 @@ const CommentInput = ({scription_id, setSubmitted}) => {
       <textarea placeholder="Comment..."
         value={newComment}
         onChange={(event) => {
-          console.log('event: ', event.target.value);
           setComment(event.target.value)
-          console.log('newComment: ', newComment);
         }}>
       </textarea>
       <button className="scription-btns" onClick={submit}>

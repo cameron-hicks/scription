@@ -7,13 +7,12 @@ const MainWrapper = () => {
   const [username, setUsername] = useState('');
   const [authType, setAuthType] = useState('');
 
-  // console.log('sending GET to /auth');
   // if user has an active cookie, display their username
   // else display log in/sign up dropdown
   fetch('/auth')
     .then(res => res.json())
     .then(data => {
-      console.log('data from /auth/:', data);
+      // console.log('Checked for cookies.', data);
       // if user has cookie, use it to set state
       if (!data.username) return;
       setUsername(data.username);
@@ -56,8 +55,9 @@ const MainWrapper = () => {
         </div>
       </header>
 
-      {authType && displayAuthForm(authType)}
-      {!authType && <MainContainer />}
+      {authType
+        ? displayAuthForm(authType)
+        : <MainContainer />}
 
       <footer>
         <p>Created by Cameron Baumgartner | <a href="https://github.com/cameronbaumgartner">Github</a> | <a href="https://linkedin.com/in/cameronbaumgartner">LinkedIn</a></p>
