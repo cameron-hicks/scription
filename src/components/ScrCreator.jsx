@@ -49,8 +49,6 @@ G,3 z | A, B, C2 | D4 |E1/2F1/2 G1/2A1/2 A1/2G1/2 F1/2E1/2 | B c d e1/4f1/4g1/4a
   }, [previewRendered, newAbc, audioContext]);
 
   const create = () => {
-    console.log('Creating new scription');
-
     fetch('/api/', {
       method: 'PUT',
       headers: {
@@ -62,9 +60,12 @@ G,3 z | A, B, C2 | D4 |E1/2F1/2 G1/2A1/2 A1/2G1/2 F1/2E1/2 | B c d e1/4f1/4g1/4a
         abc: newAbc
       })
     })
-    .then(res => res.json())
-    .then(data => console.log('Data from PUT response: ', data))
-    .catch(error => console.log('ScrCreator ERROR: ', error));
+    // .then(res => res.json())
+    // .then(data => console.log('Data from PUT response: ', data))
+    .catch(error => {
+      alert('Something went wrong...');
+      console.error('ERROR creating scription: ', error);
+    });
   }
   
   return (
@@ -86,12 +87,12 @@ G,3 z | A, B, C2 | D4 |E1/2F1/2 G1/2A1/2 A1/2G1/2 F1/2E1/2 | B c d e1/4f1/4g1/4a
             setRendered(false);
           }}> 
         </textarea>
-        <a className="right-align-btns" href="https://www.biteyourownelbow.com/abcnotation.htm" target="_blank" rel="noopener noreferrer"><small>(Click here for an explanation of ABC notation.)</small></a>
+        <a className="right-align" href="https://www.biteyourownelbow.com/abcnotation.htm" target="_blank" rel="noopener noreferrer"><small>(Click here for an explanation of ABC notation.)</small></a>
         <div id="preview"></div>
         {/* <div id="errors"></div> */}
         <div id="widget"></div>
 
-        <div className="right-align-btns scription-btns">
+        <div className="right-align scription-btns">
           <button onClick={create}>
             post <i className="fas fa-share-square"></i>
           </button>

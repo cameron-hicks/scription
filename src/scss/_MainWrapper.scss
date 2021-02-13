@@ -1,0 +1,66 @@
+.MainWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .banner, footer {
+    width: 100vw;
+    background-color: $navy;
+    color: $peach;
+    
+    a:hover {
+      color: $coolwhite;
+      transition: color 500ms;
+    }
+  }
+
+  .banner {
+    height: 75px;
+    margin: 0;
+    padding: 15px 35px 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h1 {
+      color: $coolgray;
+      font-size: 3rem;
+      font-family: $display;
+    }
+
+    select {
+      display: block;
+      background-color: lighten($navy, 20%);
+      border-color: darken($navy, 20%);
+      padding: 5px 10px;
+      height:fit-content;
+
+      &::placeholder {
+        color: $peach;
+      }
+    }
+
+    .auth-btns * {
+      display: inline;
+    }
+
+    #cancel-auth {
+      padding: 6px 10px;
+      margin-right: 5px;
+    }
+
+  }
+
+  footer {
+    height: 125px;
+    margin: 0;
+    padding: 50px 0;
+    text-align: center;
+
+    p {
+      vertical-align: middle;
+    }
+  }
+}

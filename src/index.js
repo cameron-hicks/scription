@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import MainContainer from './components/MainContainer';
+import MainWrapper from './components/MainWrapper';
 import "./scss/index.scss";
 
 const root = document.getElementById('root');
 
 ReactDOM.render(
   <React.StrictMode>
-    <MainContainer />
+    <MainWrapper />
   </React.StrictMode>,
   root
 );

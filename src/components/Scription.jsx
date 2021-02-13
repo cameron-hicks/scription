@@ -4,8 +4,7 @@ import CommentInput from './CommentInput';
 import ABCJS from 'abcjs';
 import 'abcjs/abcjs-audio.css';     // playback widget
 
-const USER_ID = 6;
-
+ // TODO: refactor; use cookies to get user id
 const Scription = ({ scrObj, audioContext }) => { 
   const [tuneRendered, setTuneRendered ] = useState(false);
   const [comments, setComments] = useState([]);
@@ -14,34 +13,33 @@ const Scription = ({ scrObj, audioContext }) => {
   const [liked, setLiked] = useState(false);    // whether logged-in user has liked it
   const [likes, setLikes] = useState(0);    // total likes it has
 
-  
+  // TODO: refactor.
   useEffect(() => {
     const fetchComments = () => {
       const queryString = `/api/comments?id=${scrObj._id}`;
       fetch(queryString)
       .then(res => res.json())
-      .then((fetched) => {
-        if(!fetched.length) fetched = [];
+      .then((data) => {
+        if(!data.length) data = [];
   
-        setComments(fetched);
+        setComments(data);
         // setFetched(true);
         return;
       })
-      .catch(err => console.log('Scription GET comments ERROR: ', err));
+      .catch(err => console.error('ERROR getting comments: ', err));
     };
     
     // fetch total likes and whether current user has liked it
     const fetchLikes = () => {
-      const queryString = `/api/likes?id=${scrObj._id}&user_id=` + USER_ID;
+      const queryString = `/api/likes?scription_id=${scrObj._id}`;
       fetch(queryString)
       .then(res => res.json())
-      .then((fetched) => {
-        // console.log('result of getting likes at scription # ', scrObj._id, fetched);
-        setLikes(fetched.count);
-        setLiked(fetched.likedByUser);
+      .then((data) => {
+        setLikes(data.count);
+        setLiked(data.likedByUser);
         return;
       })
-      .catch(err => console.log('Scription GET likes ERROR: ', err));
+      .catch(err => console.error('ERROR getting likes: ', err));
     };
   
     const setUpAbc = () => {
@@ -85,10 +83,9 @@ const Scription = ({ scrObj, audioContext }) => {
     fetch('/api/likes', {
       method: 'PUT',
       headers: {
-        'Content-Type': 'Application/JSON'
+        'Content-Type': 'application/JSON'
       },
       body: JSON.stringify({
-        user_id: USER_ID,           // hard-coded for now
         scription_id: scrObj._id
       })
     })
