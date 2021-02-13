@@ -1,6 +1,6 @@
 {
   "name": "scription",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "Cameron Baumgartner https://github.com/cameronbaumgartner <cameron.baumgartner@vcfa.edu>",
   "scripts": {
     "prod": "NODE_ENV='production' webpack --watch & nodemon server/server.js",
