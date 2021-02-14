@@ -1,9 +1,6 @@
 const express = require('express');
 const auth = require('../controllers/authController');
 const router = express.Router();
-// const cookieParser = require('cookie-parser');
-// const { COOKIE_SIG } = require('../secrets.js');
-// router.use(cookieParser(COOKIE_SIG));
     
 router.get('/',
   auth.getCookie,

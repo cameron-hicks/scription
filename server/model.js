@@ -1,9 +1,8 @@
 const { Pool } = require('pg');
-const { PG_URI } = require('./secrets.js');
 
 const pool = new Pool({
-  connectionString: PG_URI,
-  max: 20     // # of concurrent connections allowed 
+  connectionString: process.env.PG_URI,
+  max: 3     // # of concurrent connections allowed per client
 });
 
 module.exports = {

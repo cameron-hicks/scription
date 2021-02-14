@@ -2,7 +2,6 @@
 
 # dependencies
 node_modules
-package-lock.json
 .eslintcache
 /.pnp
 .pnp.js
@@ -28,3 +27,4 @@ node_modules
 
 # database
 /server/secrets.js
+.env

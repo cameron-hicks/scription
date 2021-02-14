@@ -2,7 +2,6 @@ const express = require("express");
 const path = require('path');
 const cors = require("cors");
 const cookieParser = require('cookie-parser');
-// const { COOKIE_SIG } = require('./secrets.js');
 const apiRouter = require('./routes/api');
 const authRouter = require('./routes/auth');
 
@@ -12,6 +11,7 @@ var corsOptions = {
   origin: "http://localhost:8080"   // TODO
 };
 
+// const { COOKIE_SIG } = process.env;
 app.use(cors(corsOptions));
 // 11 middleware for more-secure headers
 // app.use(helmet());
@@ -23,10 +23,6 @@ app.use(cookieParser());
 // statically serve everything in the build folder 
 app.use('/build/', express.static(path.join(__dirname, '../build')));
 
-// app.use('*', (req, res, next) => {
-//   console.log('current cookies', req.cookies);
-//   next();
-// })
 // route all API requests through api.js
 app.use('/api', apiRouter);
 // route all auth requests through auth.js

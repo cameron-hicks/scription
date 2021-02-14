@@ -3,8 +3,8 @@
   "version": "1.1.0",
   "author": "Cameron Baumgartner https://github.com/cameronbaumgartner <cameron.baumgartner@vcfa.edu>",
   "scripts": {
-    "prod": "NODE_ENV='production' webpack --watch & nodemon server/server.js",
-    "dev": "NODE_ENV='development' webpack serve --open --hot & nodemon server/server.js",
+    "prod": "NODE_ENV='production' webpack --watch & nodemon -r dotenv/config server/server.js",
+    "dev": "NODE_ENV='development' webpack serve --open --hot & nodemon -r dotenv/config server/server.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -28,6 +28,7 @@
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "css-loader": "^5.0.1",
+    "dotenv": "^8.2.0",
     "exports-loader": "^2.0.0",
     "express": "^4.17.1",
     "helmet": "^4.4.1",

@@ -1,5 +1,4 @@
 const path = require('path');
-// const MiniCssExtractPlugin = require('mini-css-extract-plugin');  // using?
 
 module.exports = {
   entry: './src/index.js',
@@ -8,18 +7,18 @@ module.exports = {
     filename: 'bundle.js'
   },
   mode: process.env.NODE_ENV,
-  // plugins: [new MiniCssExtractPlugin()],
   module: {
     rules: [
       {
         test: /\.jsx?/,
         exclude: /node_modules/,
-        use: {
+        enforce: 'pre',
+        use: ['source-map-loader', {
           loader: 'babel-loader',
           options: {
             presets: ['@babel/preset-env', '@babel/preset-react']
           }
-        }
+        }],
       },
       {
         test: /\.(scss|css)$/,

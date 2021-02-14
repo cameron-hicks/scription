@@ -1,7 +1,5 @@
 const bcrypt = require('bcrypt');
 const db = require('../model');
-const cookieParser = require('cookie-parser');
-// const { COOKIE_SIG } = require('../secrets.js');
 
 const authController = {};
 
