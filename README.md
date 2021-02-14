@@ -20,13 +20,10 @@ Until Scription is deployed, you'll need to make your own Postgres instance to e
 ![scription sign-up page screenshot](public/assets/v.1.1signup.png "Scription sign-up page")
 
 *Scription Creator*
-![scription creator screenshot](public/assets/v.1.0scriptioncreator.png "Scription Creator")
+![scription creator screenshot](public/assets/v.1.1scriptioncreator.png "Scription Creator")
 
-*Likes and comments*
-![scription likes and comments screenshot](public/assets/v.1.0likescomments.png "Likes and comments")
-
-*Footer and feed scroll*
-![scription footer and feed scroll screenshot](public/assets/v.1.0footer.png "Footer and feed scroll")
+*Feed, likes, and comments*
+![scription feed screenshot](public/assets/v.1.1feed.png "Feed, likes, and comments")
 
 
 ## Tech Stack
