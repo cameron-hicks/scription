@@ -1,8 +1,8 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import CommentInput from './CommentInput';
-import ABCJS from 'abcjs';
-import 'abcjs/abcjs-audio.css';     // playback widget
+import ABCJS from '../vendor/abcjs/abcjs-basic-min';
+import '../vendor/abcjs/abcjs-audio.css';   // playback widget styles
 
  // TODO: refactor; use cookies to get user id
 const Scription = ({ scrObj, audioContext }) => { 

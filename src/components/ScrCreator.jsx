@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import ABCJS from 'abcjs';
-import 'abcjs/abcjs-audio.css';   // playback widget
+import ABCJS from '../vendor/abcjs/abcjs-basic-min';
+import '../vendor/abcjs/abcjs-audio.css';   // playback widget styles
 
 
 // assume user is logged in and their id is cached; no need to collect it
