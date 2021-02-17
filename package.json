@@ -7,7 +7,9 @@
   },
   "scripts": {
     "prod": "NODE_ENV='production' webpack & node -r dotenv/config server/server.js",
+    "prod-windows": "concurrently \"cros-env NODE_ENV='production' webpack\" \"node -r dotenv/config server/server.js\"",
     "dev": "NODE_ENV='development' webpack serve --open --hot & nodemon -r dotenv/config server/server.js",
+    "dev-windows": "concurrently \"cross-env NODE_ENV='development' webpack serve --open --hot\" \"nodemon -r dotenv/config server/server.js\"",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
