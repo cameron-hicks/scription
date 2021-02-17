@@ -11,7 +11,8 @@ const corsOptions = {
   origin: "http://localhost:8080"   // TODO
 };
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+app.use(cors());
 // 11 middleware for more-secure headers
 // app.use(helmet());
 // parse request bodies of content-type application/json
@@ -53,7 +54,6 @@ app.use((err, req, res, next) => {
 });
 
 // set port, listen for requests
-
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });

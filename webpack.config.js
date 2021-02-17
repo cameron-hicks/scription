@@ -24,15 +24,11 @@ module.exports = {
         test: /\.(scss|css)$/,
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
-      {
-        test: /\.js$/,
-        enforce: 'pre',
-        use: ['source-map-loader']
-      }
-    ]
+    ],
   },
+  // development mode settings
   devServer: { 
-    publicPath: '/build/',   // tells webpack where to put bundle.js    
+    publicPath: '/build/',   // where to put bundle.js    
     headers: { 'Access-Control-Allow-Origin': '*' },    // allow cors from any host
     proxy: {
       '/api': 'http://localhost:3000',
@@ -42,7 +38,7 @@ module.exports = {
     contentBase: path.join(__dirname, 'public')  // where to load static files from
   },
   resolve: {
-    // enables importing .js/.jsx without specifying the extensions (letters after the .)
+    // enables importing .js/.jsx without specifying the extensions 
     extensions: ['.js', '.jsx']
   }
 };
