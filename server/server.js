@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 // 11 middleware for more-secure headers
 // app.use(helmet());
-// parse request bodies of content-type application/json
+
 app.use(express.json());
 // TODO: use signed cookies
 // const { COOKIE_SIG } = process.env;
@@ -29,11 +29,10 @@ app.use('/api', apiRouter);
 // route all auth requests through auth.js
 app.use('/auth', authRouter);
 
-
 // serve index.html on the route '/'
 app.get('/', (req, res) => {
   return res.status(200)
-            .sendFile(path.join(__dirname, '../public/index.html'));
+        .sendFile(path.join(__dirname, '../public/index.html'));
 });
 
 

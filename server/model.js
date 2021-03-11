@@ -1,8 +1,24 @@
 const { Pool } = require('pg');
 
+let connectionString = '';
+if (process.env.NODE_ENV === 'test') {
+  // make .env available to this file when not using node start script
+  require('dotenv').config();
+  connectionString = process.env.TEST_DB;
+} 
+else if (process.env.NODE_ENV === 'development') {
+  connectionString = process.env.TEST_DB;
+}
+else {
+  // production environment
+  connectionString = process.env.DATABASE_URL;
+}
+
 const pool = new Pool({
-  connectionString: process.env.PG_URI,
-  max: 3     // # of concurrent connections allowed per client
+  connectionString,
+  max: 3,     
+  idleTimeoutMillis: 1000, 
+  connectionTimeoutMillis: 1000, 
 });
 
 module.exports = {
