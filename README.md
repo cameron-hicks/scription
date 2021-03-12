@@ -1,6 +1,6 @@
 # A social media for sheet music.
 
-[See it deployed →](https://scription-heroku.herokuapp.com/)
+[**See it deployed →**](https://scription-heroku.herokuapp.com/)
 
 A community for music makers to find and share original compositions and transcriptions of their favorite songs. 
 
