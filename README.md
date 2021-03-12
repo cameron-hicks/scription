@@ -41,18 +41,17 @@ Built using React, Express, and PostgreSQL. Sheet music renderings and audio pla
 - display comments and likes on each scription
 - play synthesized audio for each scription
 - user authentication: read and write users to db, API, bcrypt, and cookies
-- UX/UI for audio playback widgets 
 
 ### In Progress
 
-- bug fix: duplicate scriptions being created
+- bug fix: duplicate scriptions
 - form validation for Scription Creator
-- prevent re-liking a liked Scription
+- bug fix: prevent re-liking a liked Scription
 
 ### Upcoming Features
 
-- user folders: drafts and favorites
-- user may provide suggested edits to a scription within a comment
+- folders: drafts and favorites
+- provide suggested edits to a scription within a comment
 - filter the feed using provided categories
 - easy transposition between keys and between clefs
 - audio playback will obey bpm if specified in the scription
