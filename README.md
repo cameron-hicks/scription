@@ -1,18 +1,12 @@
 # A social media for sheet music.
 
+[See it deployed →](https://scription-heroku.herokuapp.com/)
+
 A community for music makers to find and share original compositions and transcriptions of their favorite songs. 
 
-Want to know how to play Britney Spears' "Toxic" on the bassoon? Chances are some helpful violinist has already transcribed it. Just save the sheet music (called a "scription") to your folder, hit "transpose," and voila -- now you've got the sheet music for "Toxic" in bass clef. While you're at it, give that helpful violinist a "like" to say thank you for their work.
+Upload your own Scription using the Scription Creator, a sandbox where you can type in note names and see and hear an instantly updated preview of your composition. Give likes and comments to other users' Scriptions to show your appreciation.
 
-Upload your own scription using the Scription Creator, a sandbox where you can type in note names and see and hear an instantly updated preview of your composition. Save your in-progress scriptions to a "drafts" folder, and your favorite scriptions by others in a "favorites" folder. 
-
-## To run:
-
-Scription is not yet in deployment. To play around in version 1.0, please fork and clone this repo to your local machine. In your terminal, navigate to the Scription folder. Run `npm install` then `npm run prod`, then navigate to localhost:3000 in your browser. 
-
-Until Scription is deployed, you'll need to make your own Postgres instance to enable the database features. Supply the connection string for your database at line 3 of server/controllers/feedController.js. You can execute the file dump.sql to supply it with dummy data. To do so, run this command in your terminal: `psql YOUR-CONNECTION-STRING-HERE -f dump.sql`. 
-
-## v. 1.1.0
+## Screenshots: v. 1.1.0
 *Home page*
 ![scription home page screenshot](public/assets/v.1.1main.png "Scription home page")
 
@@ -28,7 +22,7 @@ Until Scription is deployed, you'll need to make your own Postgres instance to e
 
 ## Tech Stack
 
-Built using React, Express, and PostgreSQL. Sheet music renderings and audio playback powered by [abcjs](https://github.com/paulrosen/abcjs).
+Built using React, Express, and PostgreSQL. Sheet music renderings and audio playback powered by [abcjs](https://github.com/paulrosen/abcjs). Hosted on Heroku.
 
 *Scription's relational database schema:*
 
@@ -46,12 +40,14 @@ Built using React, Express, and PostgreSQL. Sheet music renderings and audio pla
 - add comments and likes to a scription
 - display comments and likes on each scription
 - play synthesized audio for each scription
-- user authentication: read and write users to db, API, bcrypt, and cookies 
+- user authentication: read and write users to db, API, bcrypt, and cookies
+- UX/UI for audio playback widgets 
 
 ### In Progress
 
 - bug fix: duplicate scriptions being created
-- UX/UI for audio playback widgets
+- form validation for Scription Creator
+- prevent re-liking a liked Scription
 
 ### Upcoming Features
 
