@@ -3,7 +3,8 @@
   "version": "1.1.0",
   "author": "Cameron Baumgartner https://github.com/cameronbaumgartner <cameron.h.baumgartner@gmail.com>",
   "engines": {
-    "node": "^12.x"
+    "node": "^12.x",
+    "npm": "6.x"
   },
   "scripts": {
     "clean": "shx rm -rf dist",
