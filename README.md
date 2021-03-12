@@ -47,6 +47,7 @@ Built using React, Express, and PostgreSQL. Sheet music renderings and audio pla
 - bug fix: duplicate scriptions
 - form validation for Scription Creator
 - bug fix: prevent re-liking a liked Scription
+- refactor Hooks
 
 ### Upcoming Features
 
