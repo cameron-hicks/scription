@@ -1,10 +1,12 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
-import ABCJS from 'abcjs';
+import { useState, useEffect, useCallback } from 'react';
+import ABCJS from '../vendor/abcjs/abcjs-basic-min';
+import '../vendor/abcjs/abcjs-audio.css';   // playback widget styles
 
-const PREVIEW_ID = "preview"
 // assume user is logged in and their id is cached; no need to collect it
-const ScrCreator = ({myContext, onCreate}) => { 
+const PREVIEW_ID = "preview"
+
+const ScrCreator = ({audioContext, onCreate}) => { 
   const [newTitle, setTitle] = useState('');
   const [newGenre, setGenre] = useState('');
   const [newAbc, setAbc] = useState(
@@ -21,17 +23,18 @@ G,3 z | A, B, C2 | D4 |E1/2F1/2 G1/2A1/2 A1/2G1/2 F1/2E1/2 | B c d e1/4f1/4g1/4a
   useEffect(() => {
     //invoke ABCJS.renderAbc AFTER the component has mounted/updated
     if (newAbc) {
+      // TODO: wrap the below in a named function
       const abcOptions = { responsive: 'resize' };
       const visualObj = ABCJS.renderAbc(PREVIEW_ID, newAbc, abcOptions);
       const synth = new ABCJS.synth.CreateSynth();
       const widget = new ABCJS.synth.SynthController();
 
       // display playback widget
-      widget.load('#widget', null, { displayPlay: true, displayProgress: false });
+      widget.load('#widget', null, { displayPlay: true, displayProgress: true });
 
       // load notes listed in ABC string
       synth.init({
-        audioContext: myContext,
+        audioContext,
         visualObj: visualObj[0],
       }).then((results) => {
           widget.setTune(visualObj[0], false, {})
@@ -44,7 +47,9 @@ G,3 z | A, B, C2 | D4 |E1/2F1/2 G1/2A1/2 A1/2G1/2 F1/2E1/2 | B c d e1/4f1/4g1/4a
           console.warn('Problem buffering audio: ', error);
       });
     }
-  }, [newAbc, myContext]);
+  }, [newAbc, audioContext]);
+  //   return setRendered(true);
+  // }, [previewRendered, newAbc, audioContext]);
 
   const create = useCallback(() => {
     fetch('/api/', {
@@ -53,7 +58,6 @@ G,3 z | A, B, C2 | D4 |E1/2F1/2 G1/2A1/2 A1/2G1/2 F1/2E1/2 | B c d e1/4f1/4g1/4a
         'Content-Type': 'Application/JSON'
       },
       body: JSON.stringify({
-        user_id: 2,           // hard-coded for now
         title: newTitle,
         genre: newGenre,
         abc: newAbc
@@ -62,14 +66,19 @@ G,3 z | A, B, C2 | D4 |E1/2F1/2 G1/2A1/2 A1/2G1/2 F1/2E1/2 | B c d e1/4f1/4g1/4a
     .then(res => res.json())
     .then(data => {
       console.log('Data from PUT response: ', data)
-      props.onCreate()
+      onCreate();
     })
     .catch(error => console.log('ScrCreator ERROR: ', error));
   }, [])
-  const a = true;
-  useEffect(() => {
-    
-  }, [a])
+
+// before
+    // .then(res => res.json())
+    // .then(data => console.log('Data from PUT response: ', data))
+  //   .catch(error => {
+  //     alert('Something went wrong...');
+  //     console.error('ERROR creating scription: ', error);
+  //   });
+  // }
   
   return (
     <div className="ScrCreator">
@@ -89,12 +98,12 @@ G,3 z | A, B, C2 | D4 |E1/2F1/2 G1/2A1/2 A1/2G1/2 F1/2E1/2 | B c d e1/4f1/4g1/4a
             setAbc(event.target.value);
           }}> 
         </textarea>
-        <a className="right-align-btns" href="https://www.biteyourownelbow.com/abcnotation.htm" target="_blank" rel="noopener noreferrer"><small>(Click here for an explanation of ABC notation.)</small></a>
-        <div id={PREVIEW_ID}></div>
+        <a className="right-align" href="https://www.biteyourownelbow.com/abcnotation.htm" target="_blank" rel="noopener noreferrer"><small>(Click here for an explanation of ABC notation.)</small></a>
+        <div id="preview"></div>
         {/* <div id="errors"></div> */}
-        <div className="right-align-btns" id="widget"></div>
+        <div id="widget"></div>
 
-        <div className="right-align-btns scription-btns">
+        <div className="right-align scription-btns">
           <button onClick={create}>
             post <i className="fas fa-share-square"></i>
           </button>

@@ -1,66 +1,58 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 const path = require('path');
-// CORS allows for requests to cross-origin resources, ie, things on other people's pages
 const cors = require("cors");
+const cookieParser = require('cookie-parser');
 const apiRouter = require('./routes/api');
+const authRouter = require('./routes/auth');
 
 const app = express();
+const PORT = process.env.PORT || 3000;
+// const corsOptions = {
+//   origin: "http://localhost:8080"   // TODO
+// };
 
-var corsOptions = {
-  origin: "http://localhost:8080"   // what should this be?
-};
+// app.use(cors(corsOptions));
+app.use(cors());
+// 11 middleware for more-secure headers
+// app.use(helmet());
 
-app.use(cors(corsOptions));
-// parse requests of content-type - application/json
-app.use(bodyParser.json());
-// parse requests of content-type - application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+// TODO: use signed cookies
+// const { COOKIE_SIG } = process.env;
+// app.use(cookieParser(COOKIE_SIG));
+app.use(cookieParser());
 // statically serve everything in the build folder 
 app.use('/build/', express.static(path.join(__dirname, '../build')));
+
 // route all API requests through api.js
 app.use('/api', apiRouter);
+// route all auth requests through auth.js
+app.use('/auth', authRouter);
 
-
-
-console.log('environment printing from server.js:', process.env.NODE_ENV);
-const environment = process.env.NODE_ENV || 'production';
-
-if (environment === 'production') {
-  // serve index.html on the route '/'
-  app.get('/', (req, res) => {
-    return res.status(200)
-              .sendFile(path.join(__dirname, '../public/index.html'));
-  });
-}
-
-// serve styles
-// app.get('/index.scss', (req, res) => {
-//   return res.status(200)
-//             .header({ 'Content-Type': 'text/css; charset=UTF-8' })
-//             .sendFile(path.join(__dirname, '../src/scss/index.scss'));
-// });
+// serve index.html on the route '/'
+app.get('/', (req, res) => {
+  return res.status(200)
+        .sendFile(path.join(__dirname, '../public/index.html'));
+});
 
 
 //ERROR HANDLING
-app.use( (err, req, res, next) => {
-  const defaultErr = {
+app.use((err, req, res, next) => {
+  const error = {
     log: 'Express error handler caught unknown middleware error',
-    status: 400,
+    status: 500,
     message: {
-      err: 'An error occured',
+      err: 'A server error occured',
     },
   };
-  const errorObj = Object.assign(defaultErr);
-  errorObj.message = err.message; // expect to overwrite message param of defaultErr
-  if (err.status) errorObj.status = err.status;
+  error.message = err.message;
+  if (err.status) error.status = err.status;
 
-  console.log('ERROR: ', errorObj.message);
-  res.status(errorObj.status).send(errorObj.message);   
+  console.log('SERVER ERROR: ', error.message);
+  res.status(error.status).send(error.message);   
 });
 
 // set port, listen for requests
-const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
