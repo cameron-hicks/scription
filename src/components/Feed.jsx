@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import Scription from './Scription.jsx';
 
 const Feed = ({audioContext}) => { 
-  console.log('Rendering Feed');
   const [scriptions, setScriptions] = useState([]);
 
   useEffect(() => {

@@ -1,111 +1,67 @@
 import React from 'react';
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
+import useABCJS from '../hooks/useABCJS';
+import Comments from './Comments';
 import CommentInput from './CommentInput';
-import ABCJS from '../vendor/abcjs/abcjs-basic-min';
-import '../vendor/abcjs/abcjs-audio.css';   // playback widget styles
-import AudioContextContext from '../contexts/AudioContext';
 
- // TODO: refactor; use cookies to get user id
- // TODO: refactor for fewer useState calls. Test rerendering of likes and comments and make sure it works without extra state.
 const Scription = ({ scrObj }) => { 
   const [comments, setComments] = useState([]);
-  const [newCommentSubmitted, setCommentSubmitted] = useState(false); // TODO: nix this
-  const [liked, setLiked] = useState(false);    // whether logged-in user has liked it
-  const [likes, setLikes] = useState(0);    // total likes it has
-  const audioContext = useContext(AudioContextContext);
+  const [liked, setLiked] = useState(false); // whether logged-in user has liked it
+  const [likes, setLikes] = useState(0); 
 
-  // TODO: refactor.
-  useEffect(() => {
-    const fetchComments = () => {
-      const queryString = `/api/comments?id=${scrObj._id}`;
-      fetch(queryString)
-      .then(res => res.json())
-      .then((data) => {
-        if(!data.length) data = [];
+  const fetchComments = (id) => {
+    const queryString = `/api/comments?id=${id}`;
+    fetch(queryString)
+    .then(res => res.json())
+    .then((data) => {
+      if(!data.length) data = [];
   
-        setComments(data);
-        // setFetched(true);
-        return;
-      })
-      .catch(err => console.error('ERROR getting comments: ', err));
-    };
-    
-    // fetch total likes and whether current user has liked it
-    const fetchLikes = () => {
-      const queryString = `/api/likes?scription_id=${scrObj._id}`;
-      fetch(queryString)
-      .then(res => res.json())
-      .then((data) => {
-        setLikes(data.count);
-        setLiked(data.likedByUser);
-        return;
-      })
-      .catch(err => console.error('ERROR getting likes: ', err));
-    };
+      setComments(data);
+      return;
+    })
+    .catch(err => console.error('ERROR getting comments: ', err));
+  };
   
-    const setUpAbc = () => {
-      const visualObj = ABCJS.renderAbc(
-        `TuneId#${scrObj._id}`, 
-        scrObj.abc, 
-        { responsive: 'resize' }
-      );
-      const synth = new ABCJS.synth.CreateSynth();
-      const widget = new ABCJS.synth.SynthController();
-  
-      // display playback widget
-      widget.load(`#widget${scrObj._id}` || '', null, { displayPlay: true, displayProgress: true });
-  
-      // load notes listed in ABC string
-      synth.init({
-        audioContext,
-        visualObj: visualObj[0],
-      }).then((results) => {
-          widget.setTune(visualObj[0], false, {})
-                .then(() => {
-                  // console.log("Audio successfully loaded.");
-                }).catch(function (error) {
-                  console.warn("Problem initiating playback:", error);
-                });
-      }).catch((error) => {
-          console.warn('Problem buffering audio: ', error);
-      });
-    }
+  const fetchLikes = (id) => {
+    const queryString = `/api/likes?scription_id=${id}`;
+    fetch(queryString)
+    .then(res => res.json())
+    .then((data) => {
+      setLikes(data.count);
+      setLiked(data.likedByUser);
+      return;
+    })
+    .catch(err => console.error('ERROR getting likes: ', err));
+  };
 
-    fetchComments();
-    fetchLikes();
-    setUpAbc();
-
-    // set new comment flag to false
-    setCommentSubmitted(false);
-  }, [scrObj._id, scrObj.abc, newCommentSubmitted, likes, liked, audioContext]);
-
-  const addLike = () => {
+  const addLike = (id) => {
+    // optimistically updating
+    setLiked(true);
+  
     fetch('/api/likes', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/JSON'
       },
       body: JSON.stringify({
-        scription_id: scrObj._id
+        scription_id: id
       })
     })
     .then(data => {
-      setLiked(true);
     })
-    .catch(error => console.log('Scription addLike ERROR: ', error));
+    .catch(error => {
+      setLiked(false);
+      console.log('Scription addLike ERROR: ', error);
+    });
   }
 
-  const mappedComments = comments.length ? 
-    comments.map((comment, i) => {
-      return <div key={`Scr#${scrObj._id}Comment#${i}`}>
-        <p className="username">
-          {comment.username}
-          <span className="timestamp">{comment.timestamp}</span>
-        </p>
-        <p className="comment-text">{comment.text}</p>
-      </div>
-    }) :
-    <div>Be the first to comment...</div>;
+  useEffect(() => {
+    fetchComments(scrObj._id);
+    fetchLikes(scrObj._id);
+  }, []);
+  
+  useABCJS(scrObj._id, scrObj.abc);
+
 
   return (
     <div className="Scription">
@@ -122,26 +78,19 @@ const Scription = ({ scrObj }) => {
         <span>Likes: {likes}</span>
         <button className={liked ? "liked scription-btns" : "scription-btns"}
           onClick={() => {
-            if(!liked) addLike();
+            if(!liked) addLike(scrObj._id);
             return;
           }}>
             {liked ?  <i className="fas fa-heart"></i> : <i className="far fa-heart"></i>}
           </button>
       </div>
-      <section>    
-        {mappedComments}
-      </section>
+      <Comments comments={comments}/>
       <CommentInput 
         scription_id={scrObj._id} 
-        setSubmitted={setCommentSubmitted}
+        addComment={(comment) => setComments([...comments, comment])}
       />
     </div>
   );
 }
-
-
-// TODO: function to format timestamp strings by splitting into an array, reordering the elements, and re-joining them in a nicer readable format
-  // TODO if time: compare timestamp to Date.now and print "today, yesterday, two days ago", etc.
-
 
 export default Scription;

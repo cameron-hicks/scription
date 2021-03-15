@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useEffect, useCallback, useContext } from 'react';
 import ABCJS from '../vendor/abcjs/abcjs-basic-min';
 import '../vendor/abcjs/abcjs-audio.css';   // playback widget styles
-import AudioContextContext from '../contexts/AudioContext';
+import AudioContextContext from '../hooks/AudioContext';
 
 const PREVIEW_ID = "preview"
 

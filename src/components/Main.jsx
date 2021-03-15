@@ -4,7 +4,7 @@ import Feed from './Feed.jsx';
 import ScrCreator from './ScrCreator.jsx';
 import Login from './Login';
 import Signup from './Signup';
-import AudioContextContext from '../contexts/AudioContext';
+import AudioContextContext from '../hooks/AudioContext';
 
 const Main = () => {
   let audio = new AudioContext();
@@ -30,7 +30,9 @@ const Main = () => {
         {authType
           ? displayAuthForm(authType)
           : (<main className="MainContainer">
-              <button onClick={() => setShow(!showScrCreator)}>
+              <button 
+                id="show-scr-creator"
+                onClick={() => setShow(!showScrCreator)}>
                 {showScrCreator ? <i className="fas fa-times"></i> : 'New Scription' }
               </button>
               {showScrCreator && <ScrCreator /> }
