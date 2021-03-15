@@ -24,6 +24,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 node_modules
+.eslintrc.json
+.prettierrc
+.eslintcache
 
 # database
 /server/secrets.js

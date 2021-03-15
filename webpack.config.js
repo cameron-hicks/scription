@@ -38,7 +38,6 @@ module.exports = {
     contentBase: path.join(__dirname, 'public')  // where to load static files from
   },
   resolve: {
-    // enables importing .js/.jsx without specifying the extensions 
     extensions: ['.js', '.jsx']
   }
 };

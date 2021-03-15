@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Signup = ({setDisplayedUsername, closeAuthForm}) => {
+const Signup = ({closeAuthForm}) => {
   const [typedUsername, setTypedUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -30,8 +30,6 @@ const Signup = ({setDisplayedUsername, closeAuthForm}) => {
     })
       .then(res => res.json())  
       .then(data => {
-        console.log('data from signup:', data);
-        setDisplayedUsername(data.username || '');
         closeAuthForm();
       })
       .catch(error => console.log('sendLogin ERROR: ', error));

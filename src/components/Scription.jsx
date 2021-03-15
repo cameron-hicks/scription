@@ -1,17 +1,18 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import CommentInput from './CommentInput';
 import ABCJS from '../vendor/abcjs/abcjs-basic-min';
 import '../vendor/abcjs/abcjs-audio.css';   // playback widget styles
+import AudioContextContext from '../contexts/AudioContext';
 
  // TODO: refactor; use cookies to get user id
-const Scription = ({ scrObj, audioContext }) => { 
-  const [tuneRendered, setTuneRendered ] = useState(false);
+ // TODO: refactor for fewer useState calls. Test rerendering of likes and comments and make sure it works without extra state.
+const Scription = ({ scrObj }) => { 
   const [comments, setComments] = useState([]);
-  const [commentsFetched, setFetched] = useState(false);
-  const [newCommentSubmitted, setCommentSubmitted] = useState(false);
+  const [newCommentSubmitted, setCommentSubmitted] = useState(false); // TODO: nix this
   const [liked, setLiked] = useState(false);    // whether logged-in user has liked it
   const [likes, setLikes] = useState(0);    // total likes it has
+  const audioContext = useContext(AudioContextContext);
 
   // TODO: refactor.
   useEffect(() => {
@@ -76,8 +77,7 @@ const Scription = ({ scrObj, audioContext }) => {
 
     // set new comment flag to false
     setCommentSubmitted(false);
-    return setTuneRendered(true); // do I need this?
-  }, [tuneRendered, commentsFetched, scrObj._id, scrObj.abc, newCommentSubmitted, likes, liked, audioContext]);
+  }, [scrObj._id, scrObj.abc, newCommentSubmitted, likes, liked, audioContext]);
 
   const addLike = () => {
     fetch('/api/likes', {
