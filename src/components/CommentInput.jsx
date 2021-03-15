@@ -1,10 +1,13 @@
 import React from 'react';
 import { useState } from 'react';
 
-const CommentInput = ({scription_id, setSubmitted}) => {
+const CommentInput = ({scription_id, addComment}) => {
   const [newComment, setComment] = useState('');
 
   const submit = () => {
+    // optimistically updating <Scription/>
+    addComment(newComment);
+
     fetch('/api/comments', {
       method: 'PUT',
       headers: {
@@ -18,7 +21,6 @@ const CommentInput = ({scription_id, setSubmitted}) => {
     })
     .then(data => {
       setComment('');
-      setSubmitted(true);
     })
     .catch(error => {
       alert('Something went wrong...');
