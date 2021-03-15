@@ -44,8 +44,11 @@ Built using React, Express, and PostgreSQL. Sheet music renderings and audio pla
 
 ### In Progress
 
+- performance improvements (espec. re: HTTP requests for audio)
 - form validation for Scription Creator
 - folders: drafts and favorites
+
+
 ### Upcoming Features
 
 - provide suggested edits to a scription within a comment
