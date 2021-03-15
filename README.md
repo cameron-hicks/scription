@@ -44,14 +44,10 @@ Built using React, Express, and PostgreSQL. Sheet music renderings and audio pla
 
 ### In Progress
 
-- bug fix: duplicate scriptions
 - form validation for Scription Creator
-- bug fix: prevent re-liking a liked Scription
-- refactor Hooks
-
+- folders: drafts and favorites
 ### Upcoming Features
 
-- folders: drafts and favorites
 - provide suggested edits to a scription within a comment
 - filter the feed using provided categories
 - easy transposition between keys and between clefs
